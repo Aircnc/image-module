@@ -8,14 +8,10 @@ class Image extends React.Component {
 		super(props);
 	} 
 
-
-
-
-
 	render() {
 		return(
 			<div className="grid-container">
-			  <Button className='item6 Button'> View Photos</Button>
+			  <Button2ton className='item6 Button'> View Photos</Button>
 			  <Button className='item4 Button2'> Share</Button>
 			  <Button className='item4 Button3'> Save</Button>
 			  
