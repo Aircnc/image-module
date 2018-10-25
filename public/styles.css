@@ -1,4 +1,4 @@
-*, *::before, *::after{
+	*, *::before, *::after{
 	box-sizing: border-box;
 	transition: all 0.4s ease-in-out;
 }
@@ -51,7 +51,7 @@
 }
 
 .bigImage:hover, .smallImage1:hover, .smallImage2:hover, .smallImage3:hover, .smallImage4:hover {
-	transform: scale(1.1);
+	transform: scale(1.05);
 }
 
 .grid-container {
