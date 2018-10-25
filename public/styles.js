@@ -16,13 +16,11 @@ let imageClasses = [];
    	for (let i = 0; i < 5; i++) {
 
    	curClass = $container[0].childNodes[i].firstChild.className;
-   	parentClass = $container[0].childNodes[i].className;
-   	imageClasses.push(parentClass);
+   	imageClasses.push(curClass);
    	console.log('curClass:', curClass);
-   	console.log('parentClass:', parentClass);
 
 	   	if (curClass !== hoveredClassName) {
-	   		$(`.${parentClass}`).css('opacity','0.5');
+	   		$(`.${curClass}`).css('opacity','0.5');
 	   	}
    	}
 
