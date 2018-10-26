@@ -70,6 +70,7 @@
     'menu menu footer1 footer2';
   grid-gap: 1px;
   background-color: #484848;
+  border-width: 2px;
 }
 
 .gallery {
@@ -138,18 +139,31 @@
 	height:100%;
 }
 
+#curImg {
+	width: 737px;
+	height:492px;
+}
+
+#enlargedImage {
+	position: relative;
+	top: 84px;
+	left:273px;
+	width: 737px;
+	height:492px;
+	margin: 0;
+	background-color: red;
+}
+
 /* Modal Content */
 .modalContent {
-
   position: relative;
   display: flex;
   justify-content: space-between;
-  top:607px;
+  top:120px;
   width: 737px;
   height: 70px;
   background-color: #262626;
   margin: 0 auto;
-
 
 }
 

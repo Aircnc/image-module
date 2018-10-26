@@ -11,7 +11,8 @@ class Image extends React.Component {
 		super(props);
 
 		this.state = {
-			view: 'imageCollege'
+			view: 'imageCollege',
+			clickedImg: 0
 		}
 
 		this.handleClick = this.handleClick.bind(this);
@@ -20,10 +21,24 @@ class Image extends React.Component {
 
 	} 
 
-	changeView(newView) {
+	changeView(newView, n) {
+
+
+
+	let {clickedImg} = this.state;
+
+	if (newView === 'gallery') {
+	console.log('newView:', newView);
+	console.log('n: ', n);
+	
+		clickedImg = n;
+	}
+
 	this.setState({
-		view: newView
+		view: newView,
+		clickedImg: clickedImg
 	});
+
 	}
 
 	handleClick(e) {
@@ -33,13 +48,13 @@ class Image extends React.Component {
 
 
 	renderView() {
-		let {view} = this.state;
 
+		let {view, clickedImg} = this.state;
 
 		if (view === 'imageCollege') {
-			return <ImageCollage handleClick = {this.handleClick} />
+			return <ImageCollage handleClick = {this.changeView} />
 		} else if (view === 'gallery') {
-			return <Gallery handleClick = {this.handleClick} />
+			return <Gallery handleClick = {this.changeView} clickedImg={clickedImg}/>
 		}
 	};
 

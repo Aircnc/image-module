@@ -4,7 +4,6 @@ let $container = $('.grid-container');
 let imageClasses = [];
 
    $img.on('mouseenter', (event) => {
-
    	let hoveredClassName = event.target.className;   	
    	let curClass;
    	let includeClass;
@@ -19,10 +18,10 @@ let imageClasses = [];
  });
 
   $img.on('mouseleave', (event) => {
-    
     let curClass;
-
    	for (let i = 0; i < imageClasses.length; i++) {
    		$(`.${imageClasses[i]}`).css('opacity','1');
    	}
   });
+
+
