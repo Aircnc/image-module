@@ -3,6 +3,11 @@
 	transition: all 0.4s ease-in-out;
 }
 
+
+img:hover {
+	cursor: pointer;
+}
+
 .bigImage {
 	width: 640px;
 	height:300px;

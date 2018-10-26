@@ -12,7 +12,8 @@ class Gallery extends React.Component {
 	}
 
 	$('#myModal').css('display','block');
-
+	this.handleImageClick = this.handleImageClick.bind(this);
+	this.handleLeftRight = this.handleLeftRight.bind(this);
 	}
 
 	componentDidMount() {
@@ -20,21 +21,36 @@ class Gallery extends React.Component {
 	}
 
 	showSlides(n) {
-
-		console.log(n);
 		let $enlargedImage = $('#enlargedImage');
 		let url = sampleUrls[n];
-		console.log(url);
-		$enlargedImage.append(`<img className ='slideShowImage' id='curImg' src=${url}></img>`);	
+		$enlargedImage.html(`<img className ='slideShowImage' id='curImg' src=${url}></img>`);	
+		this.setState({n: n});
 	}
 
 
+	handleImageClick(n) {
+		this.showSlides(n);
+	}
 
+	handleLeftRight(direction) {
+
+		console.log(direction);
+		let {n} = this.state;
+
+		if (direction === 'left') {
+			n -= 1;
+		} else if (direction === 'right'){
+			n += 1;
+		}
+
+	this.setState({n: n});
+	this.showSlides(n);
+	
+	}
 
 	render() {
 
 		return (
-
 			<div className ='gallery'> 
 
 				<div id='return' onClick = {() => this.props.handleClick('imageCollege')}>
@@ -43,13 +59,13 @@ class Gallery extends React.Component {
 					</svg>
 				</div>
 
-				<div id='leftButton'>
+				<div id='leftButton' onClick={() => this.handleLeftRight('left')}>
 					<svg viewBox="0 0 100 100" height='430px' width='430px'>
 						<path d="m13.7 16.29a1 1 0 1 1 -1.42 1.41l-8-8a1 1 0 0 1 0-1.41l8-8a1 1 0 1 1 1.42 1.41l-7.29 7.29z" />
 					</svg>
 				</div>
 
-				<div id='rightButton'>
+				<div id='rightButton' onClick={() => this.handleLeftRight('right')} >
 					<svg viewBox="0 0 100 100" height='430px' width='430px'>
 						<path d="m4.29 1.71a1 1 0 1 1 1.42-1.41l8 8a1 1 0 0 1 0 1.41l-8 8a1 1 0 1 1 -1.42-1.41l7.29-7.29z" />
 					</svg>
@@ -63,37 +79,37 @@ class Gallery extends React.Component {
 
 					    <div className="mySlides">
 					      <div className="numbertext"></div>
-					      <img className ='slideShowImage' id='navigateImage1' src={sampleUrls[9]}></img>
+					      <img onClick={() => this.handleImageClick(9)} className ='slideShowImage' id='navigateImage1' src={sampleUrls[9]}></img>
 					    </div>
 
 					    <div className="mySlides">
 					      <div className="numbertext"></div>
-					      <img className ='slideShowImage' id='navigateImage2' src={ sampleUrls[10] } ></img>
+					      <img onClick={() => this.handleImageClick(10)} className ='slideShowImage' id='navigateImage2' src={ sampleUrls[10] } ></img>
 					    </div>
 
 					    <div className="mySlides">
 					      <div className="numbertext"></div>
-					      <img className ='slideShowImage' id='navigateImage3' src={sampleUrls[11]} ></img>
+					      <img onClick={() => this.handleImageClick(11)} className ='slideShowImage' id='navigateImage3' src={sampleUrls[11]} ></img>
 					    </div>
 
 					    <div className="mySlides">
 					      <div className="numbertext"></div>
-					      <img className ='slideShowImage' id='navigateImage4' src={sampleUrls[12]} ></img>
+					      <img onClick={() => this.handleImageClick(12)} className ='slideShowImage' id='navigateImage4' src={sampleUrls[12]} ></img>
 						</div>
 
 					    <div className="mySlides">
 					      <div className="numbertext"></div>
-					      <img className ='slideShowImage' id='navigateImage5' src={sampleUrls[13]} ></img>
+					      <img onClick={() => this.handleImageClick(13)} className ='slideShowImage' id='navigateImage5' src={sampleUrls[13]} ></img>
 						</div>
 
 					    <div className="mySlides">
 					      <div className="numbertext"></div>
-					      <img className ='slideShowImage' id='navigateImage6' src={sampleUrls[14]} ></img>
+					      <img onClick={() => this.handleImageClick(14)} className ='slideShowImage' id='navigateImage6' src={sampleUrls[14]} ></img>
 						</div>
 
 					    <div className="mySlides">
 					      <div className="numbertext"></div>
-					      <img className ='slideShowImage' id='navigateImage7' src={sampleUrls[15]} ></img>
+					      <img onClick={() => this.handleImageClick(15)} className ='slideShowImage' id='navigateImage7' src={sampleUrls[15]} ></img>
 						</div>
 
 

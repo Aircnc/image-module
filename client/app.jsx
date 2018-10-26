@@ -14,11 +14,9 @@ class Image extends React.Component {
 			view: 'imageCollege',
 			clickedImg: 0
 		}
-
 		this.handleClick = this.handleClick.bind(this);
 		this.changeView = this.changeView.bind(this);
 		this.renderView = this.renderView.bind(this);
-
 	} 
 
 	changeView(newView, n) {
@@ -30,7 +28,7 @@ class Image extends React.Component {
 	if (newView === 'gallery') {
 	console.log('newView:', newView);
 	console.log('n: ', n);
-	
+
 		clickedImg = n;
 	}
 
