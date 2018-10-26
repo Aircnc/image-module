@@ -1,21 +1,54 @@
 import React from 'react';
-
+import $ from 'jquery';
+import sampleUrls from './../data/image.js';
 
 
 class Gallery extends React.Component {
 
-
 	constructor(props) {
 		super(props);
+
+	 $('#myModal').css('display','block');
+
 	}
 
 
 	render() {
 
+	console.log(sampleUrls);
+
 		return (
 
-
 			<div className ='gallery'> 
+				<div id="myModal" class="modal">
+
+				<div class='modalContent'>
+				    <div className="mySlides">
+				      <div className="numbertext">1 / 4</div>
+				      <img className ='item2' src={sampleUrls[0]}></img>
+				    </div>
+
+				    <div className="mySlides">
+				      <div className="numbertext">2 / 4</div>
+				      <img className ='item2' src={ sampleUrls[1] } ></img>
+				    </div>
+
+				    <div className="mySlides">
+				      <div className="numbertext">3 / 4</div>
+				      <img className ='item2' src={sampleUrls[2]} ></img>
+				    </div>
+
+				    <div className="mySlides">
+				      <div className="numbertext">4 / 4</div>
+				      <img className ='item2' src={sampleUrls[3]} ></img>
+
+				</div>
+
+	    		</div>
+			</div>
+
+
+
 
 				<div id='return'>
 					<svg viewBox="0 0 100 100" height='118px' width='118px'>

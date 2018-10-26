@@ -2,9 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Gallery from './gallery.jsx';
 import ImageCollage from './ImageCollage.jsx';
-
-
 import { Button } from 'semantic-ui-react';
+
 
 class Image extends React.Component {
 

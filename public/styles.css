@@ -120,7 +120,28 @@
 	position: absolute;
 	left:1220px;
 	top:16px;
+	width: 30px;
+}
+
+#return:hover, #rightButton:hover, #leftButton:hover {
+	cursor: pointer;
+}
+
+/* Modal Content */
+.modal-content {
+
+  display: none;
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  width: 90%;
+  max-width: 1200px;
 
 }
 
+.modalContent {
+	display:flex;
+	justify-content: center;
+}
 
