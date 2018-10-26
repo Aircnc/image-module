@@ -13,7 +13,7 @@ let imageClasses = [];
    	curClass = $container[0].childNodes[i].firstChild.className;
    	imageClasses.push(curClass);
 	   	if (curClass !== hoveredClassName) {
-	   		$(`.${curClass}`).css('opacity','0.5');
+	   		$(`.${curClass}`).css('opacity','0.65');
 	   	}
    	}
  });
