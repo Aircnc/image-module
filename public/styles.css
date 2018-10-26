@@ -54,6 +54,12 @@
 	transform: scale(1.05);
 }
 
+.slideShowImage {
+
+	width: 92px;
+	height: 70px;
+}
+
 .grid-container {
   z-index: 0;
   width: 1286px;
@@ -127,21 +133,27 @@
 	cursor: pointer;
 }
 
+.modal{
+	width: 100%;
+	height:100%;
+}
+
 /* Modal Content */
-.modal-content {
-
-  display: none;
-  position: relative;
-  background-color: #fefefe;
-  margin: auto;
-  padding: 0;
-  width: 90%;
-  max-width: 1200px;
-
-}
-
 .modalContent {
-	display:flex;
-	justify-content: center;
+
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  top:607px;
+  width: 737px;
+  height: 70px;
+  background-color: #262626;
+  margin: 0 auto;
+
+
 }
+
+
+
+
 

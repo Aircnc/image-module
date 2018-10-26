@@ -20,35 +20,6 @@ class Gallery extends React.Component {
 		return (
 
 			<div className ='gallery'> 
-				<div id="myModal" class="modal">
-
-				<div class='modalContent'>
-				    <div className="mySlides">
-				      <div className="numbertext">1 / 4</div>
-				      <img className ='item2' src={sampleUrls[0]}></img>
-				    </div>
-
-				    <div className="mySlides">
-				      <div className="numbertext">2 / 4</div>
-				      <img className ='item2' src={ sampleUrls[1] } ></img>
-				    </div>
-
-				    <div className="mySlides">
-				      <div className="numbertext">3 / 4</div>
-				      <img className ='item2' src={sampleUrls[2]} ></img>
-				    </div>
-
-				    <div className="mySlides">
-				      <div className="numbertext">4 / 4</div>
-				      <img className ='item2' src={sampleUrls[3]} ></img>
-
-				</div>
-
-	    		</div>
-			</div>
-
-
-
 
 				<div id='return'>
 					<svg viewBox="0 0 100 100" height='118px' width='118px'>
@@ -67,6 +38,49 @@ class Gallery extends React.Component {
 						<path d="m4.29 1.71a1 1 0 1 1 1.42-1.41l8 8a1 1 0 0 1 0 1.41l-8 8a1 1 0 1 1 -1.42-1.41l7.29-7.29z" />
 					</svg>
 				</div>
+
+				<div id="myModal" class="modal">
+
+					<div className='modalContent'>
+					
+					    <div className="mySlides">
+					      <div className="numbertext"></div>
+					      <img className ='slideShowImage' id='navigateImage1' src={sampleUrls[0]}></img>
+					    </div>
+
+					    <div className="mySlides">
+					      <div className="numbertext"></div>
+					      <img className ='slideShowImage' id='navigateImage2' src={ sampleUrls[1] } ></img>
+					    </div>
+
+					    <div className="mySlides">
+					      <div className="numbertext"></div>
+					      <img className ='slideShowImage' id='navigateImage3' src={sampleUrls[2]} ></img>
+					    </div>
+
+					    <div className="mySlides">
+					      <div className="numbertext"></div>
+					      <img className ='slideShowImage' id='navigateImage4' src={sampleUrls[3]} ></img>
+						</div>
+
+					    <div className="mySlides">
+					      <div className="numbertext"></div>
+					      <img className ='slideShowImage' id='navigateImage5' src={sampleUrls[4]} ></img>
+						</div>
+
+					    <div className="mySlides">
+					      <div className="numbertext"></div>
+					      <img className ='slideShowImage' id='navigateImage6' src={sampleUrls[5]} ></img>
+						</div>
+
+					    <div className="mySlides">
+					      <div className="numbertext"></div>
+					      <img className ='slideShowImage' id='navigateImage7' src={sampleUrls[6]} ></img>
+						</div>
+
+
+	    		</div>
+			</div>
 
 			</div>
 
