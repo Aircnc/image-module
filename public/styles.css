@@ -3,14 +3,23 @@
 	transition: all 0.4s ease-in-out;
 }
 
+
+img:hover {
+	cursor: pointer;
+}
+
 .bigImage {
 	width: 640px;
 	height:300px;
+	border: solid rgb(95,95,95);
+	border-width: 1px;
 }
 
 .smallImage1, .smallImage2, .smallImage3, .smallImage4 {
 	width: 323px;
 	height:150px;
+	border: solid rgb(95,95,95);
+	border-width: 1px;
 }
 
 .item2 { 
@@ -54,18 +63,38 @@
 	transform: scale(1.05);
 }
 
+.slideShowImage {
+	opacity: 0.4;
+	width: 92px;
+	height: 70px;
+}
+
+.slideShowImage:hover {
+	transition: all 0.1s ease-in-out;
+	opacity: 1;
+}
+
+.increaseOpacity {
+	opacity: 1;
+}
+
 .grid-container {
   z-index: 0;
-  width: 1286px;
+  /*width: 1286px;*/
+  width: 100%;
   height:300px;
   display: grid;
   grid-template-areas:
-    'menu menu main right'
-    'menu menu footer1 footer2';
-  grid-gap: 1px;
+  'menu menu main right'
+  'menu menu footer1 footer2';
   background-color: #484848;
 }
 
+.gallery {
+	background-color: #262626;
+	width: 100%;
+	height:100%;
+}
 .Button {
 	z-index: 10;
 	position:relative;
@@ -94,11 +123,68 @@
 	left:200px;
 	bottom: 88px;
 	right:180px;
+}
+
+#leftButton {
+	fill: white;
+	position: absolute;
+	left: 10px;
+	top:272px;
+}
+
+#rightButton {
+	fill: white;
+	position: absolute;
+	left: 1208px;
+	top:272px;
+}
+
+#return {
+	fill: white;
+	position: absolute;
+	left:1220px;
+	top:16px;
+	width: 30px;
+}
+
+#return:hover, #rightButton:hover, #leftButton:hover {
+	cursor: pointer;
+}
+
+.modal{
+	width: 100%;
+	height:100%;
+}
+
+#curImg {
+	width: 737px;
+	height:492px;
+}
+
+#enlargedImage {
+	position: relative;
+	top: 84px;
+	left:273px;
+	width: 737px;
+	height:492px;
+	margin: 0;
+	background-color: red;
+}
+
+/* Modal Content */
+.modalContent {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  top:120px;
+  width: 737px;
+  height: 70px;
+  background-color: #262626;
+  margin: 0 auto;
 
 }
 
-.Button2 {
 
-}
+
 
 
