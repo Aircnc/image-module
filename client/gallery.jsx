@@ -1,16 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import $ from 'jquery';
-import sampleUrls from './../data/image.js';
-
+import sampleUrls from '../data/image';
 
 class Gallery extends React.Component {
-
   constructor(props) {
-
     super(props);
     this.state = {
       n: 0,
-      prevClicked: null
+      prevClicked: null,
     };
 
     $('#myModal').css('display', 'block');
@@ -19,46 +17,49 @@ class Gallery extends React.Component {
   }
 
   componentDidMount() {
-    this.showSlides(this.props.clickedImg);
+    const { clickedImg } = this.props;
+    this.showSlides(clickedImg);
   }
 
   showSlides(n) {
-    let $enlargedImage = $('#enlargedImage');
-    let url = sampleUrls[n];
-    $enlargedImage.html(`<img className ='slideShowImage' id='curImg' src=${url}></img>`);  
-    this.setState({n: n});
+    const $enlargedImage = $('#enlargedImage');
+    const url = sampleUrls[n];
+    $enlargedImage.html(`<img className ='slideShowImage' id='curImg' src=${url}></img>`);
+    this.setState({ n });
   }
 
 
-  handleImageClick(n, {id}) {
-    const {prevClicked} = this.state;
+  handleImageClick(n, { id }) {
+    const { prevClicked } = this.state;
     if (prevClicked !== null) {
       $(`#${prevClicked}`).toggleClass('increaseOpacity');
     }
 
-    this.setState({prevClicked: id});
+    this.setState({ prevClicked: id });
     $(`#${id}`).toggleClass('increaseOpacity');
     this.showSlides(n);
   }
 
   handleLeftRight(direction) {
-    let {n} = this.state;
+    let { n } = this.state;
     if (direction === 'left') {
       n -= 1;
     } else if (direction === 'right') {
       n += 1;
     }
 
-    this.setState({n: n});
+    this.setState({ n });
     this.showSlides(n);
   }
 
   render() {
-    return (
-      <div className ='gallery'> 
+    let { handleClick } = this.props;
 
-        <div id='return' onClick = {() => this.props.handleClick('imageCollege')}>
-          <svg viewBox="0 0 100 100" height='118px' width='118px'>
+    return (
+      <div className="gallery">
+
+        <div id="return" onClick={() => handleClick('imageCollege')}>
+          <svg viewBox="0 0 100 100" height="118px" width="118px">
             <path d="m23.25 24c-.19 0-.38-.07-.53-.22l-10.72-10.72-10.72 10.72c-.29.29-.77.29-1.06 0s-.29-.77 0-1.06l10.72-10.72-10.72-10.72c-.29-.29-.29-.77 0-1.06s.77-.29 1.06 0l10.72 10.72 10.72-10.72c.29-.29.77-.29 1.06 0s .29.77 0 1.06l-10.72 10.72 10.72 10.72c.29.29.29.77 0 1.06-.15.15-.34.22-.53.22" />
           </svg>
         </div>
@@ -127,6 +128,9 @@ class Gallery extends React.Component {
   }
 }
 
-
+Gallery.propTypes = {
+  clickedImg: PropTypes.number,
+  handleClick: PropTypes.func,
+};
 
 export default Gallery;
