@@ -8,52 +8,52 @@ img:hover {
 }
 
 .bigImage {
-  width: 46.6%;
-  height:20.6%;
+  width: 100%;
+  height:100%;
   border: solid rgb(95,95,95);
   border-width: 1px;
 }
 
 .smallImage1, .smallImage2, .smallImage3, .smallImage4 {
-  width: 18%;
-  height:150px;
+  width: 100%;
+  height:100%;
   border: solid rgb(95,95,95);
   border-width: 1px;
 }
 
 .item2 { 
   grid-area: main;
-  width: 50%;
-  height:150px;
+  width:  100%;
+  height:100%;
   overflow:hidden;
   display: inline-block;
  }
 .item3 { 
   grid-area: menu;
-  width: 46.6%;
-  height:20.6%;
+  width: 100%;
+  height:100%;
   overflow:hidden;
   display: inline-block;
 }
 .item4 { 
   grid-area: right; 
-  width: 50%;
-  height:150px;
+  width: 100%;
+  height:100%;
   overflow:hidden;
   display: inline-block;
 }
 .item5 { 
   grid-area: footer1;
-  width: 50%;
-  height:150px;
+  width: 100%;
+  height:100%;
   overflow:hidden;
   display: inline-block;
  }
 
 .item6 { 
   grid-area: footer2; 
-  width: 50%;
-  height:20%;
+  width: 100%;
+  height:100%;
   overflow:hidden;
   display: inline-block;
 }
@@ -81,7 +81,7 @@ img:hover {
   z-index: 0;
   /*width: 1286px;*/
   width: 100%;
-  height:300px;
+  height:63%;
   display: grid;
   grid-template-areas:
   'menu menu main right'
@@ -100,14 +100,14 @@ img:hover {
   top: 88px;
   width: 125px;
   height: 39px;
-  left: 181px;
+  left: 25%;
 }
 
 .Button2 {
   position:relative;  
   z-index: 10;
   top:22px;
-  left:50px;
+  left:5%;
   bottom: 88px;
   right:150px;
   width:94px;
@@ -119,7 +119,7 @@ img:hover {
   z-index: 10;
   width:94px;
   top:22px;
-  left:200px;
+  left:27%;
   bottom: 88px;
   right:180px;
 }
@@ -164,8 +164,8 @@ img:hover {
   position: relative;
   top: 84px;
   left:273px;
-  width: 737px;
-  height:492px;
+  width: 60%;
+  height:70%;
   margin: 0;
   background-color: red;
 }
@@ -175,10 +175,10 @@ img:hover {
   display: flex;
   justify-content: space-between;
   top:120px;
-  width: 737px;
+  width: 60%;
   height: 70px;
   background-color: #262626;
-  margin: 0 auto;
+  left: 16.3%;
 }
 
 
