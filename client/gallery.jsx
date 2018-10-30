@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import $ from 'jquery';
+import ReactCSSTransitionGroup from 'react-transition-group'; // ES6
 import sampleUrls from '../data/image';
 
 class Gallery extends React.Component {
@@ -37,6 +38,7 @@ class Gallery extends React.Component {
 
     this.setState({ prevClicked: id });
     $(`#${id}`).toggleClass('increaseOpacity');
+
     this.showSlides(n);
   }
 
@@ -53,7 +55,7 @@ class Gallery extends React.Component {
   }
 
   render() {
-    let { handleClick } = this.props;
+    const { handleClick } = this.props;
 
     return (
       <div className="gallery">
@@ -78,49 +80,57 @@ class Gallery extends React.Component {
 
         <div id="myModals" className="modal">
 
-          <div id='enlargedImage'></div>
+          <div id="enlargedImage"></div>
           
-          <div className='modalContent'>
+          <div className="modalContent">
 
-            <div className="mySlides">
-              <div className="numbertext"></div>
-              <img onClick={(e) => this.handleImageClick(9, e.target)} className ='slideShowImage' id='navigateImage1' src={sampleUrls[9]}></img>
-            </div>
+              <div className="mySlides">
+                <div className="numbertext"></div>
+                <img onClick={(e) => this.handleImageClick(9, e.target)} className ='slideShowImage' id='navigateImage1' src={sampleUrls[9]}></img>
+              </div>
 
-            <div className="mySlides">
-              <div className="numbertext"></div>
-              <img onClick={(e) => this.handleImageClick(10, e.target)} className ='slideShowImage' id='navigateImage2' src={ sampleUrls[10] } ></img>
-            </div>
+              <div className="mySlides">
+                <div className="numbertext"></div>
+                <img onClick={(e) => this.handleImageClick(10, e.target)} className ='slideShowImage' id='navigateImage2' src={ sampleUrls[10]} ></img>
+              </div>
 
-            <div className="mySlides">
-              <div className="numbertext"></div>
-              <img onClick={(e) => this.handleImageClick(11, e.target)} className ='slideShowImage' id='navigateImage3' src={sampleUrls[11]} ></img>
-            </div>
+              <div className="mySlides">
+                <div className="numbertext"></div>
+                <img onClick={(e) => this.handleImageClick(11, e.target)} className ='slideShowImage' id='navigateImage3' src={sampleUrls[11]} ></img>
+              </div>
 
-            <div className="mySlides">
-              <div className="numbertext"></div>
-              <img onClick={(e) => this.handleImageClick(12, e.target)} className ='slideShowImage' id='navigateImage4' src={sampleUrls[12]} ></img>
-            </div>
+              <div className="mySlides">
+                <div className="numbertext"></div>
+                <img onClick={(e) => this.handleImageClick(12, e.target)} className ='slideShowImage' id='navigateImage4' src={sampleUrls[12]} ></img>
+              </div>
 
-            <div className="mySlides">
-              <div className="numbertext"></div>
-              <img onClick={(e) => this.handleImageClick(13, e.target)} className ='slideShowImage' id='navigateImage5' src={sampleUrls[13]} ></img>
-            </div>
+              <div className="mySlides">
+                <div className="numbertext"></div>
+                <img onClick={(e) => this.handleImageClick(13, e.target)} className ='slideShowImage' id='navigateImage5' src={sampleUrls[13]} ></img>
+              </div>
 
-            <div className="mySlides">
-              <div className="numbertext"></div>
-              <img onClick={(e) => this.handleImageClick(14, e.target)} className ='slideShowImage' id='navigateImage6' src={sampleUrls[14]} ></img>
-            </div>
+              <div className="mySlides">
+                <div className="numbertext"></div>
+                <img onClick={(e) => this.handleImageClick(14, e.target)} className ='slideShowImage' id='navigateImage6' src={sampleUrls[14]} ></img>
+              </div>
 
-            <div className="mySlides">
-              <div className="numbertext"></div>
-              <img onClick={(e) => this.handleImageClick(15, e.target)} className ='slideShowImage' id='navigateImage7' src={sampleUrls[15]} ></img>
-            </div>
+              <div className="mySlides">
+                <div className="numbertext"></div>
+                <img onClick={(e) => this.handleImageClick(15, e.target)} className ='slideShowImage' id='navigateImage7' src={sampleUrls[15]} ></img>
+              </div>
 
+              <div className="mySlides">
+                <div className="numbertext"></div>
+                <img onClick={(e) => this.handleImageClick(16, e.target)} className ='slideShowImage' id='navigateImage8' src={sampleUrls[16]} ></img>
+              </div>
+
+              <div className="mySlides">
+                <div className="numbertext"></div>
+                <img onClick={(e) => this.handleImageClick(17, e.target)} className ='slideShowImage' id='navigateImage9' src={sampleUrls[17]} ></img>
+              </div>
 
           </div>
         </div>
-
       </div>
 
 

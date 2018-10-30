@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const db = mongoose.connection;
 
+
 mongoose.connect('mongodb://127.0.0.1/images', { useNewUrlParser: true });
 
 const imageSchema = new mongoose.Schema({
