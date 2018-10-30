@@ -44,6 +44,7 @@ class Gallery extends React.Component {
     this.state = {
       n: 0,
       prevClicked: null,
+      curClicked: null,
       shiftPixels: 0,
     };
 
@@ -67,17 +68,16 @@ class Gallery extends React.Component {
 
 
   handleImageClick(n, { id }) {
-
     console.log('n:', n);
     console.log('sampleUrls.length:', sampleUrls.length);
-    const { prevClicked, imagesInView, shiftPixels } = this.state;
+    const { prevClicked, shiftPixels } = this.state;
     let amountToShift = shiftPixels;
     if (prevClicked !== null) {
       $(`#${prevClicked}`).css('opacity', '0.4');
     }
 
     if (n < sampleUrls.length && n > 3) {
-      amountToShift = -((n - 4) * 102);
+      amountToShift = -((n - 4) * 115.375);
     } else if (n < 3) {
       amountToShift = 0;
     }
@@ -90,7 +90,6 @@ class Gallery extends React.Component {
     );
 
     $(`#${id}`).css('opacity', '1');
-
     this.showSlides(n);
   }
 
@@ -111,7 +110,11 @@ class Gallery extends React.Component {
   }
 
   handleMouseLeave({ id }) {
-    $(`#${id}`).css('opacity', '0.4');
+    const { prevClicked } = this.state;
+
+    if (prevClicked !== id) {
+      $(`#${id}`).css('opacity', '0.4');
+    }
   }
 
   createSlideshowImages() {
