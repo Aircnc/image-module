@@ -8,14 +8,14 @@ img:hover {
 }
 
 .bigImage {
-  width: 640px;
-  height:300px;
+  width: 46.6%;
+  height:20.6%;
   border: solid rgb(95,95,95);
   border-width: 1px;
 }
 
 .smallImage1, .smallImage2, .smallImage3, .smallImage4 {
-  width: 323px;
+  width: 18%;
   height:150px;
   border: solid rgb(95,95,95);
   border-width: 1px;
@@ -23,28 +23,28 @@ img:hover {
 
 .item2 { 
   grid-area: main;
-  width: 323px;
+  width: 50%;
   height:150px;
   overflow:hidden;
   display: inline-block;
  }
 .item3 { 
   grid-area: menu;
-  width: 640px;
-  height:300px;
+  width: 46.6%;
+  height:20.6%;
   overflow:hidden;
   display: inline-block;
 }
 .item4 { 
   grid-area: right; 
-  width: 323px;
+  width: 50%;
   height:150px;
   overflow:hidden;
   display: inline-block;
 }
 .item5 { 
   grid-area: footer1;
-  width: 323px;
+  width: 50%;
   height:150px;
   overflow:hidden;
   display: inline-block;
@@ -52,8 +52,8 @@ img:hover {
 
 .item6 { 
   grid-area: footer2; 
-  width: 323px;
-  height:150px;
+  width: 50%;
+  height:20%;
   overflow:hidden;
   display: inline-block;
 }
