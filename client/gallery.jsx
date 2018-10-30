@@ -2,7 +2,41 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import $ from 'jquery';
 import ReactCSSTransitionGroup from 'react-transition-group'; // ES6
+import axios from 'axios';
 import sampleUrls from '../data/image';
+import { Button } from 'semantic-ui-react';
+import styled from 'styled-components';
+
+const Image = styled.img`
+opacity: 0.4;
+width: 100%;
+height: 100%;
+transition: all 0.1s ease-in-out;
+`;
+const Slides = styled.div`
+width: 100%;
+height:100%;
+margin: 0 5px;
+transition: all 0.150s linear;
+transform: translate(${p => p.shiftPixels}px, 0%);
+`;
+
+const Content = styled.div`
+position: relative;
+overflow: hidden;
+top:120px;
+width: 60%;
+height: 70px;
+background-color: #262626;
+left: 16.3%;
+`;
+
+const SlideShow = styled.div`
+width:230%;
+height: 100%;
+display: flex;
+justify-content: space-between;
+`;
 
 class Gallery extends React.Component {
   constructor(props) {
@@ -10,11 +44,13 @@ class Gallery extends React.Component {
     this.state = {
       n: 0,
       prevClicked: null,
+      shiftPixels: 0,
     };
 
     $('#myModal').css('display', 'block');
     this.handleImageClick = this.handleImageClick.bind(this);
     this.handleLeftRight = this.handleLeftRight.bind(this);
+    this.createSlideshowImages = this.createSlideshowImages.bind(this);
   }
 
   componentDidMount() {
@@ -31,13 +67,29 @@ class Gallery extends React.Component {
 
 
   handleImageClick(n, { id }) {
-    const { prevClicked } = this.state;
+
+    console.log('n:', n);
+    console.log('sampleUrls.length:', sampleUrls.length);
+    const { prevClicked, imagesInView, shiftPixels } = this.state;
+    let amountToShift = shiftPixels;
     if (prevClicked !== null) {
-      $(`#${prevClicked}`).toggleClass('increaseOpacity');
+      $(`#${prevClicked}`).css('opacity', '0.4');
     }
 
-    this.setState({ prevClicked: id });
-    $(`#${id}`).toggleClass('increaseOpacity');
+    if (n < sampleUrls.length && n > 3) {
+      amountToShift = -((n - 4) * 102);
+    } else if (n < 3) {
+      amountToShift = 0;
+    }
+
+    this.setState(
+      {
+        prevClicked: id,
+        shiftPixels: amountToShift,
+      },
+    );
+
+    $(`#${id}`).css('opacity', '1');
 
     this.showSlides(n);
   }
@@ -54,6 +106,30 @@ class Gallery extends React.Component {
     this.showSlides(n);
   }
 
+  handleMouseEnter({ id }) {
+    $(`#${id}`).css('opacity', '1');
+  }
+
+  handleMouseLeave({ id }) {
+    $(`#${id}`).css('opacity', '0.4');
+  }
+
+  createSlideshowImages() {
+    const { shiftPixels } = this.state;
+    const slideshows = [];
+    sampleUrls.forEach((url, idx) => {
+      const DOM = (
+        <Slides shiftPixels={shiftPixels}>
+          <Image alt="slideShowImage" onMouseEnter={e => this.handleMouseEnter(e.target)} onMouseLeave={e => this.handleMouseLeave(e.target)} onClick={e => this.handleImageClick(idx, e.target)} id={`navigateImage${idx}`} src={url} />
+        </Slides>
+      );
+
+      slideshows.push(DOM);
+    });
+
+    return slideshows;
+  }
+
   render() {
     const { handleClick } = this.props;
 
@@ -67,69 +143,27 @@ class Gallery extends React.Component {
         </div>
 
         <div id='leftButton' onClick={() => this.handleLeftRight('left')}>
-          <svg viewBox="0 0 100 100" height='430px' width='430px'>
+          <svg viewBox="0 0 100 100" height="430px" width="430px">
             <path d="m13.7 16.29a1 1 0 1 1 -1.42 1.41l-8-8a1 1 0 0 1 0-1.41l8-8a1 1 0 1 1 1.42 1.41l-7.29 7.29z" />
           </svg>
         </div>
 
-        <div id='rightButton' onClick={() => this.handleLeftRight('right')} >
-          <svg viewBox="0 0 100 100" height='430px' width='430px'>
+        <div id='rightButton' onClick={() => this.handleLeftRight('right')}>
+          <svg viewBox="0 0 100 100" height="430px" width="430px">
             <path d="m4.29 1.71a1 1 0 1 1 1.42-1.41l8 8a1 1 0 0 1 0 1.41l-8 8a1 1 0 1 1 -1.42-1.41l7.29-7.29z" />
           </svg>
         </div>
 
         <div id="myModals" className="modal">
 
-          <div id="enlargedImage"></div>
-          
-          <div className="modalContent">
+          <div id="enlargedImage" />
 
-              <div className="mySlides">
-                <div className="numbertext"></div>
-                <img onClick={(e) => this.handleImageClick(9, e.target)} className ='slideShowImage' id='navigateImage1' src={sampleUrls[9]}></img>
-              </div>
+          <Content>
+            <SlideShow>
+              {this.createSlideshowImages()}
+            </SlideShow>
+          </Content>
 
-              <div className="mySlides">
-                <div className="numbertext"></div>
-                <img onClick={(e) => this.handleImageClick(10, e.target)} className ='slideShowImage' id='navigateImage2' src={ sampleUrls[10]} ></img>
-              </div>
-
-              <div className="mySlides">
-                <div className="numbertext"></div>
-                <img onClick={(e) => this.handleImageClick(11, e.target)} className ='slideShowImage' id='navigateImage3' src={sampleUrls[11]} ></img>
-              </div>
-
-              <div className="mySlides">
-                <div className="numbertext"></div>
-                <img onClick={(e) => this.handleImageClick(12, e.target)} className ='slideShowImage' id='navigateImage4' src={sampleUrls[12]} ></img>
-              </div>
-
-              <div className="mySlides">
-                <div className="numbertext"></div>
-                <img onClick={(e) => this.handleImageClick(13, e.target)} className ='slideShowImage' id='navigateImage5' src={sampleUrls[13]} ></img>
-              </div>
-
-              <div className="mySlides">
-                <div className="numbertext"></div>
-                <img onClick={(e) => this.handleImageClick(14, e.target)} className ='slideShowImage' id='navigateImage6' src={sampleUrls[14]} ></img>
-              </div>
-
-              <div className="mySlides">
-                <div className="numbertext"></div>
-                <img onClick={(e) => this.handleImageClick(15, e.target)} className ='slideShowImage' id='navigateImage7' src={sampleUrls[15]} ></img>
-              </div>
-
-              <div className="mySlides">
-                <div className="numbertext"></div>
-                <img onClick={(e) => this.handleImageClick(16, e.target)} className ='slideShowImage' id='navigateImage8' src={sampleUrls[16]} ></img>
-              </div>
-
-              <div className="mySlides">
-                <div className="numbertext"></div>
-                <img onClick={(e) => this.handleImageClick(17, e.target)} className ='slideShowImage' id='navigateImage9' src={sampleUrls[17]} ></img>
-              </div>
-
-          </div>
         </div>
       </div>
 

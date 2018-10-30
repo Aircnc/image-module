@@ -15,6 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-eslint": "^10.0.1",
     "bluebird": "^3.5.2",
     "body-parser": "^1.18.3",
@@ -31,7 +32,8 @@
     "react-transition-group": "^2.5.0",
     "request": "^2.88.0",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.83.0"
+    "semantic-ui-react": "^0.83.0",
+    "styled-components": "^4.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
