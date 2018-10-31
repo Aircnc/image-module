@@ -33,7 +33,7 @@ let randomImageObj = () => {
 
 let generateImages = () => {
   let images = [];
-  let randomInt = (Math.floor(Math.random() * 5) + 10);
+  let randomInt = (Math.floor(Math.random() * 5) + 13);
 
   for (let i = 0; i < randomInt; i++) {
     images.push(randomImageObj());

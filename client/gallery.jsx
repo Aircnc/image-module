@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import $ from 'jquery';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import axios from 'axios';
 import sampleUrls from '../data/image';
 
-const listingId = '4acf2894-79e8-443c-b3d9-9f98fe6ed1af';
+const listingId = '46567b4d-9778-4403-89df-4ee08bc0f8cb';
 
 const Image = styled.img`
 opacity: 0.4;
@@ -25,9 +25,13 @@ transform: translate(${p => p.shiftPixels}px, 0%);
 const SlideText = styled.div`
 position: absolute;
 z-index: 100;
-top:87%;
+top:86%;
 left: 20.5%;
 color:white;
+width: 59%;
+display:flex;
+justify-content:space-between;
+${p => !p.showSlideShow && css`top: 96%;`};
 `;
 const Content = styled.div`
 position: relative;
@@ -45,6 +49,9 @@ width:230%;
 height: 100%;
 display: flex;
 justify-content: space-between;
+position:relative;
+${p => !p.showSlideShow && css`transform: translateY(70px);`};
+transition: all 0.3s linear;
 `;
 
 
@@ -57,6 +64,7 @@ class Gallery extends React.Component {
       prevClicked: `navigateImage${props.clickedImg}`,
       shiftPixels: 0,
       shiftFactor: 0,
+      showSlideShow: true,
     };
 
     $('#myModal').css('display', 'block');
@@ -64,6 +72,7 @@ class Gallery extends React.Component {
     this.handleLeftRight = this.handleLeftRight.bind(this);
     this.createSlideshowImages = this.createSlideshowImages.bind(this);
     this.showCurImageInfo = this.showCurImageInfo.bind(this);
+    this.handleShowPhotoList = this.handleShowPhotoList.bind(this);
   }
 
   componentDidMount() {
@@ -122,19 +131,25 @@ class Gallery extends React.Component {
 
   handleLeftRight(direction) {
     let { n } = this.state;
+    const { images } = this.state;
+
+    console.log(images);
     const oldN = n;
     if (direction === 'left') {
-      n -= 1;
+      if (n !== 0) {
+        n -= 1;
+      }
     } else if (direction === 'right') {
-      n += 1;
+      if (n !== images.length - 1) {
+        n += 1;
+      }
     }
-
-    let value = {};
-    value.id = `navigateImage${n}`; 
-
+    const value = {};
+    value.id = `navigateImage${n}`;
     this.setState({ prevClicked: `navigateImage${oldN}` });
     this.handleImageClick(n, value);
     this.showSlides(n);
+    
   }
 
   handleMouseEnter({ id }) {
@@ -178,10 +193,19 @@ class Gallery extends React.Component {
     return (`${n + 1} / ${numImages}: ${images[n].description}`);
   }
 
-  // TODO:
-  // Make a array state of length 9 and store the values there. Give each image a fixed size
+  handleShowPhotoList() {
+    const { showSlideShow } = this.state;
+    if (!showSlideShow) {
+    }
+
+    this.setState({ showSlideShow: !showSlideShow });
+  }
+
   render() {
-    const { handleClick, images } = this.props;
+    const { handleClick } = this.props;
+    const { showSlideShow } = this.state;
+
+    console.log(showSlideShow);
 
     return (
       <div className="gallery">
@@ -208,9 +232,15 @@ class Gallery extends React.Component {
 
           <div id="enlargedImage">
           </div>
-          <SlideText>{this.showCurImageInfo()}</SlideText>
+          
+          <SlideText showSlideShow={showSlideShow}>
+            {this.showCurImageInfo()}
+            <div onClick={() => this.handleShowPhotoList()}>
+              {(showSlideShow ? 'Hide photo list ▼' : 'Show photo list ▲')}
+            </div>
+          </SlideText>
           <Content>
-            <SlideShow>
+            <SlideShow showSlideShow={showSlideShow}>
               {this.createSlideshowImages()}
             </SlideShow>
           </Content>
