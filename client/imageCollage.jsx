@@ -11,6 +11,7 @@ class ImageCollage extends React.Component {
 
     this.state = {
       images: sampleUrls,
+      effectsAdded: false,
     };
   }
 
@@ -26,14 +27,15 @@ class ImageCollage extends React.Component {
   }
 
   addImgEffects() {
-    let $img = $('img');
-    let $container = $('.grid-container');
-    let imageClasses = [];
+    const { effectsAdded } = this.state;
+
+    const $img = $('img');
+    const $container = $('.grid-container');
+    const imageClasses = [];
 
     $img.on('mouseenter', (event) => {
-      let hoveredClassName = event.target.className;   	
+      const hoveredClassName = event.target.className;
       let curClass;
-      let includeClass;
 
       for (let i = 3; i < 8; i++) { // First 3 elements are buttons
         curClass = $container[0].childNodes[i].firstChild.className;
@@ -57,7 +59,6 @@ class ImageCollage extends React.Component {
     const { images } = this.state;
 
     return (
-
       <div className="grid-container">
         <Button className="item6 Button"> View Photos</Button>
         <Button className="item4 Button2"> Share</Button>
@@ -73,7 +74,4 @@ class ImageCollage extends React.Component {
     );
   }
 }
-
-
-
 export default ImageCollage;

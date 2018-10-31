@@ -13,6 +13,7 @@ width: 100%;
 height: 100%;
 transition: all 0.1s ease-in-out;
 `;
+
 const Slides = styled.div`
 width: 100%;
 height:100%;
@@ -55,6 +56,7 @@ class Gallery extends React.Component {
       images: sampleUrls,
       prevClicked: `navigateImage${props.clickedImg}`,
       shiftPixels: 0,
+      shiftFactor: 0,
     };
 
     $('#myModal').css('display', 'block');
@@ -64,13 +66,17 @@ class Gallery extends React.Component {
     this.showCurImageInfo = this.showCurImageInfo.bind(this);
   }
 
-
   componentDidMount() {
     axios.get(`/listings/${listingId}/images`)
       .then(({ data }) => {
         const newImages = data[0].images;
         console.log(newImages);
-        this.setState({ images: newImages });
+        this.setState(
+          {
+            images: newImages,
+            shiftFactor: 2750 / newImages.length, // 2750 is approximate
+          },
+        );
         const { clickedImg } = this.props;
         $(`#navigateImage${clickedImg}`).css('opacity', '1');
         this.showSlides(clickedImg);
@@ -89,16 +95,16 @@ class Gallery extends React.Component {
   handleImageClick(n, { id }) {
     console.log('n:', n);
     console.log('sampleUrls.length:', sampleUrls.length);
-    const { prevClicked, shiftPixels } = this.state;
+    const { prevClicked, shiftPixels, shiftFactor } = this.state;
     let amountToShift = shiftPixels;
     if (prevClicked !== null) {
       $(`#${prevClicked}`).css('opacity', '0.4');
     }
 
-    // TODO:
-    // Scale amountToShift with number of images
+    $(`#${id}`).css('opacity', '1');
+
     if (n < sampleUrls.length && n > 3) {
-      amountToShift = -((n - 4) * 115.375);
+      amountToShift = -((n - 4) * shiftFactor);
     } else if (n < 3) {
       amountToShift = 0;
     }
@@ -111,19 +117,23 @@ class Gallery extends React.Component {
       },
     );
 
-    $(`#${id}`).css('opacity', '1');
     this.showSlides(n);
   }
 
   handleLeftRight(direction) {
     let { n } = this.state;
+    const oldN = n;
     if (direction === 'left') {
       n -= 1;
     } else if (direction === 'right') {
       n += 1;
     }
 
-    this.setState({ n });
+    let value = {};
+    value.id = `navigateImage${n}`; 
+
+    this.setState({ prevClicked: `navigateImage${oldN}` });
+    this.handleImageClick(n, value);
     this.showSlides(n);
   }
 
@@ -171,7 +181,7 @@ class Gallery extends React.Component {
   // TODO:
   // Make a array state of length 9 and store the values there. Give each image a fixed size
   render() {
-    const { handleClick } = this.props;
+    const { handleClick, images } = this.props;
 
     return (
       <div className="gallery">
