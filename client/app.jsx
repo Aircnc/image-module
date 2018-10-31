@@ -4,7 +4,7 @@ import Gallery from './gallery.jsx';
 import ImageCollage from './imageCollage.jsx';
 
 
-class Image extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -53,4 +53,6 @@ class Image extends React.Component {
     return this.renderView();
   }
 }
-ReactDOM.render(<Image />, document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById('app'));
+
+export default App;
