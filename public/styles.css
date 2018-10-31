@@ -1,88 +1,106 @@
-	*, *::before, *::after{
-	box-sizing: border-box;
-	transition: all 0.4s ease-in-out;
+
+  *, *::before, *::after{
+  box-sizing: border-box;
+  transition: all 0.3s linear;
 }
 
-
 img:hover {
-	cursor: pointer;
+  cursor: pointer;
+}
+
+.slide-right {
+  transition: all 0.150s linear;
+  transform: translate(-600px, 0%);
 }
 
 .bigImage {
-	width: 640px;
-	height:300px;
-	border: solid rgb(95,95,95);
-	border-width: 1px;
+  width: 100%;
+  height:100%;
+  border: solid rgb(95,95,95);
+  border-width: 1px;
 }
 
 .smallImage1, .smallImage2, .smallImage3, .smallImage4 {
-	width: 323px;
-	height:150px;
-	border: solid rgb(95,95,95);
-	border-width: 1px;
+  width: 100%;
+  height:100%;
+  border: solid rgb(95,95,95);
+  border-width: 1px;
 }
 
 .item2 { 
-	grid-area: main;
-	width: 323px;
-	height:150px;
-	overflow:hidden;
-	display: inline-block;
+  grid-area: main;
+  width:  100%;
+  height:100%;
+  overflow:hidden;
+  display: inline-block;
  }
 .item3 { 
-	grid-area: menu;
-	width: 640px;
-	height:300px;
-	overflow:hidden;
-	display: inline-block;
+  grid-area: menu;
+  width: 100%;
+  height:100%;
+  overflow:hidden;
+  display: inline-block;
 }
 .item4 { 
-	grid-area: right; 
-	width: 323px;
-	height:150px;
-	overflow:hidden;
-	display: inline-block;
+  grid-area: right; 
+  width: 100%;
+  height:100%;
+  overflow:hidden;
+  display: inline-block;
 }
 .item5 { 
-	grid-area: footer1;
-	width: 323px;
-	height:150px;
-	overflow:hidden;
-	display: inline-block;
+  grid-area: footer1;
+  width: 100%;
+  height:100%;
+  overflow:hidden;
+  display: inline-block;
  }
 
 .item6 { 
-	grid-area: footer2; 
-	width: 323px;
-	height:150px;
-	overflow:hidden;
-	display: inline-block;
+  grid-area: footer2; 
+  width: 100%;
+  height:100%;
+  overflow:hidden;
+  display: inline-block;
 }
 
 .bigImage:hover, .smallImage1:hover, .smallImage2:hover, .smallImage3:hover, .smallImage4:hover {
-	transform: scale(1.05);
+  
+  transform: scale(1.05);
 }
 
-.slideShowImage {
-	opacity: 0.4;
-	width: 92px;
-	height: 70px;
-}
+/* .mySlides {
+  width: 100%;
+  height:100%;
+  margin: 0 5px;
+} */
+
+/* .mySlides:hover {
+  transition: all 0.150s linear;
+  transform: translate(50px, 0%);
+} */
+
+
+/* .slideShowImage {
+  opacity: 0.4;
+  width: 100%;
+  height: 100%;
+} */
 
 .slideShowImage:hover {
-	transition: all 0.1s ease-in-out;
-	opacity: 1;
+  transition: all 0.1s ease-in-out;
+  opacity: 1;
 }
 
 .increaseOpacity {
-	opacity: 1;
+  opacity: 1;
 }
 
 .grid-container {
   z-index: 0;
   /*width: 1286px;*/
   width: 100%;
-  height:300px;
+  height:63%;
   display: grid;
   grid-template-areas:
   'menu menu main right'
@@ -91,98 +109,100 @@ img:hover {
 }
 
 .gallery {
-	background-color: #262626;
-	width: 100%;
-	height:100%;
+  background-color: #262626;
+  width: 100%;
+  height:100%;
 }
 .Button {
-	z-index: 10;
-	position:relative;
-	top: 88px;
-	width: 125px;
-	height: 39px;
-	left: 181px;
+  z-index: 10;
+  position:relative;
+  top: 88px;
+  width: 125px;
+  height: 39px;
+  left: 25%;
 }
 
 .Button2 {
-	position:relative;	
-	z-index: 10;
-	top:22px;
-	left:50px;
-	bottom: 88px;
-	right:150px;
-	width:94px;
+  position:relative;  
+  z-index: 10;
+  top:22px;
+  left:5%;
+  bottom: 88px;
+  right:150px;
+  width:94px;
 }
 .Button3 {
-	position:relative;	
-	z-index: 10;
-	position:relative;	
-	z-index: 10;
-	width:94px;
-	top:22px;
-	left:200px;
-	bottom: 88px;
-	right:180px;
+  position:relative;  
+  z-index: 10;
+  position:relative;  
+  z-index: 10;
+  width:94px;
+  top:22px;
+  left:27%;
+  bottom: 88px;
+  right:180px;
 }
 
 #leftButton {
-	fill: white;
-	position: absolute;
-	left: 10px;
-	top:272px;
+  fill: white;
+  position: absolute;
+  left: 0%;
+  top:40%;
 }
 
 #rightButton {
-	fill: white;
-	position: absolute;
-	left: 1208px;
-	top:272px;
+  fill: white;
+  position: absolute;
+  left: 96%;
+  top:40%;
 }
 
 #return {
-	fill: white;
-	position: absolute;
-	left:1220px;
-	top:16px;
-	width: 30px;
+  fill: white;
+  position: absolute;
+  left:96.5%;
+  top:16px;
+  width: 30px;
 }
 
 #return:hover, #rightButton:hover, #leftButton:hover {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .modal{
-	width: 100%;
-	height:100%;
+  width: 100%;
+  height:100%;
 }
 
 #curImg {
-	width: 737px;
-	height:492px;
+  width: 100%;
+  height:100%;
 }
 
 #enlargedImage {
-	position: relative;
-	top: 84px;
-	left:273px;
-	width: 737px;
-	height:492px;
-	margin: 0;
-	background-color: red;
-}
-
-/* Modal Content */
-.modalContent {
   position: relative;
+  top: 84px;
+  width: 60%;
+  height:70%;
+  margin: 0 auto;
+  background-color: #262626;
+}
+/* .slideShow {
+  width:230%;
+  height: 100%;
   display: flex;
   justify-content: space-between;
+} */
+
+/* .modalContent {
+  position: relative;
+  overflow: hidden;
   top:120px;
-  width: 737px;
+  width: 60%;
   height: 70px;
   background-color: #262626;
-  margin: 0 auto;
-
-}
+  left: 16.3%;
+} */
 
 
 

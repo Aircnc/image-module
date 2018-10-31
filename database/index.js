@@ -1,25 +1,15 @@
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/images', {useNewUrlParser: true});
-var db = mongoose.connection;
+const mongoose = require('mongoose');
+const db = mongoose.connection;
 
-var imageSchema = new mongoose.Schema({
-listingId: String,
-images: Array
+
+mongoose.connect('mongodb://127.0.0.1/images', { useNewUrlParser: true });
+
+const imageSchema = new mongoose.Schema({
+  listingId: String,
+  images: Array,
 });
 
-var Images = mongoose.model('Images', imageSchema);
-
-
-
+const Images = mongoose.model('Images', imageSchema);
 
 module.exports.Images = Images;
 module.exports.mongoose = mongoose;
-
-
-
-
-
-
-
-
-
