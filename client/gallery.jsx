@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import $ from 'jquery';
-import ReactCSSTransitionGroup from 'react-transition-group'; // ES6
+import styled from 'styled-components';
 import axios from 'axios';
 import sampleUrls from '../data/image';
-import { Button } from 'semantic-ui-react';
-import styled from 'styled-components';
+
+const listingId = '4acf2894-79e8-443c-b3d9-9f98fe6ed1af';
 
 const Image = styled.img`
 opacity: 0.4;
@@ -17,10 +17,17 @@ const Slides = styled.div`
 width: 100%;
 height:100%;
 margin: 0 5px;
-transition: all 0.150s linear;
+transition: all 0.3s linear;
 transform: translate(${p => p.shiftPixels}px, 0%);
 `;
 
+const SlideText = styled.div`
+position: absolute;
+z-index: 100;
+top:87%;
+left: 20.5%;
+color:white;
+`;
 const Content = styled.div`
 position: relative;
 overflow: hidden;
@@ -28,7 +35,8 @@ top:120px;
 width: 60%;
 height: 70px;
 background-color: #262626;
-left: 16.3%;
+margin: 0 auto;
+margin-top: 4%;
 `;
 
 const SlideShow = styled.div`
@@ -38,13 +46,14 @@ display: flex;
 justify-content: space-between;
 `;
 
+
 class Gallery extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       n: 0,
-      prevClicked: null,
-      curClicked: null,
+      images: sampleUrls,
+      prevClicked: `navigateImage${props.clickedImg}`,
       shiftPixels: 0,
     };
 
@@ -52,16 +61,26 @@ class Gallery extends React.Component {
     this.handleImageClick = this.handleImageClick.bind(this);
     this.handleLeftRight = this.handleLeftRight.bind(this);
     this.createSlideshowImages = this.createSlideshowImages.bind(this);
+    this.showCurImageInfo = this.showCurImageInfo.bind(this);
   }
 
+
   componentDidMount() {
-    const { clickedImg } = this.props;
-    this.showSlides(clickedImg);
+    axios.get(`/listings/${listingId}/images`)
+      .then(({ data }) => {
+        const newImages = data[0].images;
+        console.log(newImages);
+        this.setState({ images: newImages });
+        const { clickedImg } = this.props;
+        $(`#navigateImage${clickedImg}`).css('opacity', '1');
+        this.showSlides(clickedImg);
+      });
   }
 
   showSlides(n) {
+    const { images } = this.state;
     const $enlargedImage = $('#enlargedImage');
-    const url = sampleUrls[n];
+    const url = images[n].imageUrl;
     $enlargedImage.html(`<img className ='slideShowImage' id='curImg' src=${url}></img>`);
     this.setState({ n });
   }
@@ -76,6 +95,8 @@ class Gallery extends React.Component {
       $(`#${prevClicked}`).css('opacity', '0.4');
     }
 
+    // TODO:
+    // Scale amountToShift with number of images
     if (n < sampleUrls.length && n > 3) {
       amountToShift = -((n - 4) * 115.375);
     } else if (n < 3) {
@@ -84,6 +105,7 @@ class Gallery extends React.Component {
 
     this.setState(
       {
+        n,
         prevClicked: id,
         shiftPixels: amountToShift,
       },
@@ -118,12 +140,19 @@ class Gallery extends React.Component {
   }
 
   createSlideshowImages() {
-    const { shiftPixels } = this.state;
+    const { shiftPixels, images } = this.state;
     const slideshows = [];
-    sampleUrls.forEach((url, idx) => {
+    images.forEach((image, idx) => {
       const DOM = (
         <Slides shiftPixels={shiftPixels}>
-          <Image alt="slideShowImage" onMouseEnter={e => this.handleMouseEnter(e.target)} onMouseLeave={e => this.handleMouseLeave(e.target)} onClick={e => this.handleImageClick(idx, e.target)} id={`navigateImage${idx}`} src={url} />
+          <Image
+            alt="slideShowImage"
+            onMouseEnter={e => this.handleMouseEnter(e.target)}
+            onMouseLeave={e => this.handleMouseLeave(e.target)}
+            onClick={e => this.handleImageClick(idx, e.target)}
+            id={`navigateImage${idx}`}
+            src={image.imageUrl}
+          />
         </Slides>
       );
 
@@ -133,13 +162,21 @@ class Gallery extends React.Component {
     return slideshows;
   }
 
+  showCurImageInfo() {
+    const { n, images } = this.state;
+    const numImages = images.length;
+    return (`${n + 1} / ${numImages}: ${images[n].description}`);
+  }
+
+  // TODO:
+  // Make a array state of length 9 and store the values there. Give each image a fixed size
   render() {
     const { handleClick } = this.props;
 
     return (
       <div className="gallery">
 
-        <div id="return" onClick={() => handleClick('imageCollege')}>
+        <div id="return" onClick={() => handleClick('imageCollege') }>
           <svg viewBox="0 0 100 100" height="118px" width="118px">
             <path d="m23.25 24c-.19 0-.38-.07-.53-.22l-10.72-10.72-10.72 10.72c-.29.29-.77.29-1.06 0s-.29-.77 0-1.06l10.72-10.72-10.72-10.72c-.29-.29-.29-.77 0-1.06s.77-.29 1.06 0l10.72 10.72 10.72-10.72c.29-.29.77-.29 1.06 0s .29.77 0 1.06l-10.72 10.72 10.72 10.72c.29.29.29.77 0 1.06-.15.15-.34.22-.53.22" />
           </svg>
@@ -159,8 +196,9 @@ class Gallery extends React.Component {
 
         <div id="myModals" className="modal">
 
-          <div id="enlargedImage" />
-
+          <div id="enlargedImage">
+          </div>
+          <SlideText>{this.showCurImageInfo()}</SlideText>
           <Content>
             <SlideShow>
               {this.createSlideshowImages()}

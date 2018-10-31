@@ -146,21 +146,21 @@ img:hover {
 #leftButton {
   fill: white;
   position: absolute;
-  left: 1%;
-  top:272px;
+  left: 0%;
+  top:40%;
 }
 
 #rightButton {
   fill: white;
   position: absolute;
-  left: 95%;
-  top:272px;
+  left: 96%;
+  top:40%;
 }
 
 #return {
   fill: white;
   position: absolute;
-  left:96%;
+  left:96.5%;
   top:16px;
   width: 30px;
 }
@@ -182,11 +182,10 @@ img:hover {
 #enlargedImage {
   position: relative;
   top: 84px;
-  left:273px;
   width: 60%;
   height:70%;
-  margin: 0;
-  background-color: red;
+  margin: 0 auto;
+  background-color: #262626;
 }
 /* .slideShow {
   width:230%;
