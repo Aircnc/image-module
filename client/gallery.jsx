@@ -8,13 +8,21 @@ import sampleUrls from '../data/image';
 const listingId = '46567b4d-9778-4403-89df-4ee08bc0f8cb';
 
 const Image = styled.img`
+transition: all 0.3s linear;
 opacity: 0.4;
 width: 100%;
 height: 100%;
 transition: all 0.1s ease-in-out;
+
+:hover {
+  transition: all 0.3s ease-in-out;
+  opacity: 1;
+}
+
 `;
 
 const Slides = styled.div`
+transition: all 0.3s linear;
 width: 100%;
 height:100%;
 margin: 0 5px;
@@ -23,6 +31,7 @@ transform: translate(${p => p.shiftPixels}px, 0%);
 `;
 
 const SlideText = styled.div`
+transition: all 0.3s linear;
 position: absolute;
 z-index: 100;
 top:86%;
@@ -34,6 +43,7 @@ justify-content:space-between;
 ${p => !p.showSlideShow && css`top: 96%;`};
 `;
 const Content = styled.div`
+transition: all 0.3s linear;
 position: relative;
 overflow: hidden;
 top:120px;
@@ -54,6 +64,19 @@ ${p => !p.showSlideShow && css`transform: translateY(70px);`};
 transition: all 0.3s linear;
 `;
 
+const Modal = styled.div`
+width: 100%;
+height:100%;
+`;
+
+const LargeImage = styled.div`
+position: relative;
+top: 84px;
+width: 60%;
+height:70%;
+margin: 0 auto;
+background-color: #262626;
+`;
 
 class Gallery extends React.Component {
   constructor(props) {
@@ -73,6 +96,8 @@ class Gallery extends React.Component {
     this.createSlideshowImages = this.createSlideshowImages.bind(this);
     this.showCurImageInfo = this.showCurImageInfo.bind(this);
     this.handleShowPhotoList = this.handleShowPhotoList.bind(this);
+    this.showSlides = this.showSlides.bind(this);
+
   }
 
   componentDidMount() {
@@ -94,6 +119,7 @@ class Gallery extends React.Component {
 
   showSlides(n) {
     const { images } = this.state;
+    console.log(images);
     const $enlargedImage = $('#enlargedImage');
     const url = images[n].imageUrl;
     $enlargedImage.html(`<img className ='slideShowImage' id='curImg' src=${url}></img>`);
@@ -102,8 +128,6 @@ class Gallery extends React.Component {
 
 
   handleImageClick(n, { id }) {
-    console.log('n:', n);
-    console.log('sampleUrls.length:', sampleUrls.length);
     const { prevClicked, shiftPixels, shiftFactor } = this.state;
     let amountToShift = shiftPixels;
     if (prevClicked !== null) {
@@ -189,14 +213,15 @@ class Gallery extends React.Component {
 
   showCurImageInfo() {
     const { n, images } = this.state;
+    console.log(images.length);
     const numImages = images.length;
+    console.log(numImages);
+
     return (`${n + 1} / ${numImages}: ${images[n].description}`);
   }
 
   handleShowPhotoList() {
     const { showSlideShow } = this.state;
-    if (!showSlideShow) {
-    }
 
     this.setState({ showSlideShow: !showSlideShow });
   }
@@ -204,8 +229,6 @@ class Gallery extends React.Component {
   render() {
     const { handleClick } = this.props;
     const { showSlideShow } = this.state;
-
-    console.log(showSlideShow);
 
     return (
       <div className="gallery">
@@ -228,14 +251,12 @@ class Gallery extends React.Component {
           </svg>
         </div>
 
-        <div id="myModals" className="modal">
-
-          <div id="enlargedImage">
-          </div>
+        <Modal id="myModals">
+          <LargeImage id="enlargedImage" />
           
           <SlideText showSlideShow={showSlideShow}>
             {this.showCurImageInfo()}
-            <div onClick={() => this.handleShowPhotoList()}>
+            <div id="handleShowPhotoList" onClick={() => this.handleShowPhotoList()}>
               {(showSlideShow ? 'Hide photo list ▼' : 'Show photo list ▲')}
             </div>
           </SlideText>
@@ -244,8 +265,7 @@ class Gallery extends React.Component {
               {this.createSlideshowImages()}
             </SlideShow>
           </Content>
-
-        </div>
+          </Modal>
       </div>
 
 

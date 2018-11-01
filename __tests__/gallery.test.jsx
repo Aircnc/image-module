@@ -1,14 +1,17 @@
 import React from 'react'; 
 import {mount, shallow, render} from 'enzyme';
 import Gallery from '../client/gallery';
+import sampleUrls from '../data/image';
+import sampleUrls2 from '../data/image2';
 
 
 describe('<Gallery />', () => {
   it('should have 6 states', () => {
-    const wrapper = shallow(<Gallery />); // mount/render/shallow when applicable
+    const wrapper = shallow(<Gallery clickedImg={sampleUrls[2]} />); // mount/render/shallow when applicable
     const length = Object.keys(wrapper.state()).length;
     expect(length).toEqual(6);
   });
+
   it('should increase state n when right arrow is clicked', () => {
     const wrapper = shallow(<Gallery />); // mount/render/shallow when applicable
     expect(wrapper.state().n).toEqual(0);
@@ -46,5 +49,39 @@ describe('<Gallery />', () => {
     expect(wrapper.state().n).toEqual(6);
     wrapper.find('#leftButton').simulate('click');
     expect(wrapper.state().n).toEqual(5);
+  });
+
+  it('functions should exist', () => {
+    const wrapper = shallow(<Gallery />); // mount/render/shallow when applicable
+    const instance = wrapper.instance();
+    Object.keys(instance).forEach((key) => {
+      expect(instance[key]).not.toBeFalsy();
+    });
+  });
+
+  it('showSlides should update n state', () => {
+    const wrapper = shallow(<Gallery />); // mount/render/shallow when applicable
+    const oldN = wrapper.state().n;
+    expect(oldN).toBe(0);
+    wrapper.setState({ images: sampleUrls2.images });
+    wrapper.update();
+    const { showSlides } = wrapper.instance();
+    showSlides(5);
+
+    // const newN = wrapper.state().n;
+    // expect(newN).toBe(5);
+    // expect(newN).not.toBe(oldN);
+  });
+
+  it('handleShowPhotoList should update showSlideShow state', () => {
+    const wrapper = shallow(<Gallery />); // mount/render/shallow when applicable
+    const oldShowSlideShow = wrapper.state().showSlideShow;
+    expect(oldShowSlideShow).toBe(true);
+
+    const { handleShowPhotoList } = wrapper.instance();
+    handleShowPhotoList();
+
+    const newShowSlideShow = wrapper.state().showSlideShow;
+    expect(newShowSlideShow).toBe(false);
   });
 });
