@@ -1,14 +1,18 @@
 import React from 'react'; 
 import {mount, shallow, render} from 'enzyme';
 import Gallery from '../client/gallery';
+import sampleUrls from '../data/image';
+import sampleUrls2 from '../data/image2';
 
+/* eslint-disable */
 
 describe('<Gallery />', () => {
   it('should have 6 states', () => {
-    const wrapper = shallow(<Gallery />); // mount/render/shallow when applicable
+    const wrapper = shallow(<Gallery clickedImg={sampleUrls[2]} />); // mount/render/shallow when applicable
     const length = Object.keys(wrapper.state()).length;
     expect(length).toEqual(6);
   });
+
   it('should increase state n when right arrow is clicked', () => {
     const wrapper = shallow(<Gallery />); // mount/render/shallow when applicable
     expect(wrapper.state().n).toEqual(0);
@@ -46,5 +50,55 @@ describe('<Gallery />', () => {
     expect(wrapper.state().n).toEqual(6);
     wrapper.find('#leftButton').simulate('click');
     expect(wrapper.state().n).toEqual(5);
+  });
+
+  it('functions should exist', () => {
+    const wrapper = shallow(<Gallery />); // mount/render/shallow when applicable
+    const instance = wrapper.instance();
+    Object.keys(instance).forEach((key) => {
+      expect(instance[key]).not.toBeFalsy();
+    });
+  });
+
+  it('handleShowPhotoList should update showSlideShow state', () => {
+    const wrapper = shallow(<Gallery />); // mount/render/shallow when applicable
+    const oldShowSlideShow = wrapper.state().showSlideShow;
+    expect(oldShowSlideShow).toBe(true);
+    const { handleShowPhotoList } = wrapper.instance();
+    handleShowPhotoList();
+    const newShowSlideShow = wrapper.state().showSlideShow;
+    expect(newShowSlideShow).toBe(false);
+  });
+
+  it('when mouse is clicked on handleShowPhotoList, it should update showSlideShow correctly', () => {
+    const wrapper = shallow(<Gallery />);
+    const oldShowSlideShow = wrapper.state().showSlideShow;
+    expect(oldShowSlideShow).toBe(true);
+    wrapper.find('#handleShowPhotoList').simulate('click');
+    const newShowSlideShow = wrapper.state().showSlideShow;
+    expect(newShowSlideShow).toBe(false);
+  });
+
+  it('createSlideshowImages should return an array of length lareger than 0', () => {
+    const wrapper = shallow(<Gallery />);
+    let slideshows = wrapper.instance().createSlideshowImages();
+    expect(slideshows.length).toBeGreaterThan(0);
+  });
+
+  it('showSlides() should update the url state', () => {
+    const wrapper = shallow(<Gallery />);
+    let oldN = wrapper.state().n;
+    let oldUrl = wrapper.state().url;
+
+    expect(oldN).toBe(0);
+    expect(oldUrl).toBe('');
+
+    wrapper.instance().showSlides(9);
+
+    let newN = wrapper.state().n;
+    let newUrl = wrapper.state().url;  
+
+    expect(newN).toBe(9);
+    expect(newUrl).not.toBe(oldUrl);
   });
 });
