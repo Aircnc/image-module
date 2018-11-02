@@ -106,10 +106,35 @@ const Wrapper = styled.div`
   .bigImage:hover, .smallImage1:hover, .smallImage2:hover, .smallImage3:hover, .smallImage4:hover {
     transform: scale(1.05);
   }
-`;
 
-//TODO:
-// use a state that gets toggled on hover. Check to see if sty;ed component can trigger state
+  .Button {
+    z-index: 10;
+    position:absolute;
+    width: 125px;
+    height: 39px;
+    top:55%;
+    left: 91%;
+  }
+  
+  .Button2 {
+    position:absolute;
+    z-index: 10;
+    top: 5%;
+    left:92%;
+    bottom: 88px;
+    right:150px;
+    width:94px;
+  }
+  .Button3 {
+    position:absolute;
+    z-index: 10;
+    width:94px;
+    top: 5%;
+    left:78%;
+    bottom: 88px;
+    right:180px;
+  }
+`;
 
 class ImageCollage extends React.Component {
   constructor(props) {
@@ -133,7 +158,6 @@ class ImageCollage extends React.Component {
     axios.get(`/listings/${listingId}/images`)
       .then(({ data }) => {
         const newImages = data[0].images;
-        console.log(newImages);
         this.setState({ images: newImages });
       });
   }
@@ -141,8 +165,6 @@ class ImageCollage extends React.Component {
   handleMouseLeave(e) {
     const { className } = e.target;
     const { opacity } = this.state;
-
-    console.log('handleMouseLeave:', className);
 
     Object.keys(opacity).forEach((imageClass) => {
       opacity[imageClass] = 1;
@@ -156,10 +178,8 @@ class ImageCollage extends React.Component {
   handleHover(e) {
     const { className } = e.target;
     const { opacity } = this.state;
-    console.log('handleHover:', className);
 
     Object.keys(opacity).forEach((imageClass) => {
-      console.log('imageClass in handleHover:', imageClass);
       if (className === imageClass) {
         opacity[imageClass] = 1;
       } else {
@@ -174,33 +194,82 @@ class ImageCollage extends React.Component {
     );
   }
 
+  
+  handleKeyPress(){
 
-  // <Button className="item6 Button"> View Photos</Button>
-  // <Button className="item4 Button2"> Share</Button>
-  // <Button className="item4 Button3"> Save</Button>
+  }
 
   render() {
     const { images, opacity } = this.state;
-
     return (
-      <Wrapper opacity={opacity}>
-        <div className="grid-container">
-          <div className="item2">
-            <img
-              alt= "image"
-              onMouseEnter={this.handleHover} 
-              onMouseLeave={this.handleHover} 
-              onClick = {() => this.props.handleClick('gallery', 0)} 
-              className = 'bigImage' 
-              src={images[0].imageUrl} 
-            />
+      <div>
+        <Wrapper opacity={opacity}>
+
+          <Button className="Button3"> Share</Button>
+          <Button className="Button2"> Save</Button>
+          <Button className="Button"> View Photos</Button>
+          /* eslint-disable */
+          <div className="grid-container">
+            <div className="item2">
+              <img
+                alt= ""
+                onMouseEnter={this.handleHover} 
+                onMouseLeave={this.handleHover} 
+                onKeyPress={this.handleKeyPress}
+                onClick = {() => this.props.handleClick('gallery', 0)} 
+                className = 'bigImage' 
+                src={images[0].imageUrl} 
+              />
+            </div>
+            <div className="item3">
+              <img 
+                alt="" 
+                onMouseEnter={(e) => this.handleHover(e)} 
+                onMouseLeave={(e) => this.handleMouseLeave(e)}
+                onKeyPress={this.handleKeyPress}
+                onClick= {() => this.props.handleClick('gallery', 1)} 
+                className= 'smallImage1' 
+                src={images[1].imageUrl} 
+              />
+            </div>
+            <div className="item4">
+              <img
+                alt="" 
+                onMouseEnter={(e) => this.handleHover(e)} 
+                onMouseLeave={(e) => this.handleMouseLeave(e)} 
+                onKeyPress={this.handleKeyPress}
+                onClick= {() => this.props.handleClick('gallery', 2)} 
+                className= "smallImage2" 
+                src={images[2].imageUrl}
+              />
+            </div>
+
+            <div className="item5">
+              <img 
+                alt="" 
+                onMouseEnter={(e) => this.handleHover(e)} 
+                onMouseLeave={(e) => this.handleMouseLeave(e)} 
+                onKeyPress={this.handleKeyPress}
+                onClick= {() => this.props.handleClick('gallery', 3)} 
+                className= "smallImage3"
+                src={images[3].imageUrl} 
+              />
+            </div>
+            <div className="item6">
+              <img
+                alt=""
+                onMouseEnter={(e) => this.handleHover(e)} 
+                onMouseLeave={(e) => this.handleMouseLeave(e)} 
+                onKeyPress={this.handleKeyPress}
+                onClick= {() => this.props.handleClick('gallery', 4)} 
+                className= "smallImage4"
+                src={images[4].imageUrl}
+              />    
+            /* eslint-enable */
+            </div>
           </div>
-          <div className="item3"><img alt="" onMouseEnter={(e) => this.handleHover(e)} onMouseLeave={(e) => this.handleMouseLeave(e)} onClick = {() => this.props.handleClick('gallery', 1)} className = 'smallImage1' src={images[1].imageUrl} /></div>
-          <div className="item4"><img alt="" onMouseEnter={(e) => this.handleHover(e)} onMouseLeave={(e) => this.handleMouseLeave(e)} onClick = {() => this.props.handleClick('gallery', 2)} className = 'smallImage2' src={images[2].imageUrl} /></div>
-          <div className="item5"><img alt="" onMouseEnter={(e) => this.handleHover(e)} onMouseLeave={(e) => this.handleMouseLeave(e)} onClick = {() => this.props.handleClick('gallery', 3)} className = 'smallImage3' src={images[3].imageUrl} /></div>
-          <div className="item6"><img alt="" onMouseEnter={(e) => this.handleHover(e)} onMouseLeave={(e) => this.handleMouseLeave(e)} onClick = {() => this.props.handleClick('gallery', 4)} className = 'smallImage4' src={images[4].imageUrl} /></div>
-        </div>
-      </Wrapper>
+        </Wrapper>
+      </div>
     );
   }
 }

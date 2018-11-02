@@ -40,10 +40,56 @@ describe('<ImageCollage />', () => {
     expect(instance.handleHover).toBeDefined();
   });
 
-  it('opacity should change depending on which image is hovered', () => {
+  xit('OnClick on images should return a function', () => {
+    const wrapper = mount(<ImageCollage />); // mount/render/shallow when applicable
+    wrapper.find('.smallImage3').simulate('click');
+    wrapper.find('.smallImage4').simulate('click');
+  });
+
+  it('OnMouseLeave work for all images', () => {
+    const wrapper = mount(<ImageCollage />); // mount/render/shallow when applicable
+
+    wrapper.setState({
+      opacity: {
+        smallImage1: 0.1,
+        smallImage2: 0.1,
+        smallImage3: 0.1,
+        smallImage4: 0.1,
+        bigImage: 0.1,
+      },
+    });
+
+    Object.keys(wrapper.state().opacity).forEach((key) => {
+      expect(wrapper.state().opacity[key]).toBe(0.1);
+    });
+
+    wrapper.find('.smallImage3').simulate('mouseleave');
+
+    Object.keys(wrapper.state().opacity).forEach((key) => {
+      expect(wrapper.state().opacity[key]).toBe(1);
+    });
+
+    wrapper.setState({
+      opacity: {
+        smallImage1: 0.1,
+        smallImage2: 0.1,
+        smallImage3: 0.1,
+        smallImage4: 0.1,
+        bigImage: 0.1,
+      },
+    });
+
+    wrapper.find('.smallImage4').simulate('mouseleave');
+
+    Object.keys(wrapper.state().opacity).forEach((key) => {
+      expect(wrapper.state().opacity[key]).toBe(1);
+    });
+  });
+
+  it('opacity should change correctly depending on which image is mouse-entered', () => {
     const wrapper = mount(<ImageCollage />); // mount/render/shallow when applicable
     wrapper.find('.smallImage1').simulate('mouseenter');
-    wrapper.update();
+   // wrapper.update();
 
     for (let i = 1; i <= 4; i += 1) {
       if (i === 1) {
@@ -54,7 +100,7 @@ describe('<ImageCollage />', () => {
     }
     
     wrapper.find('.smallImage2').simulate('mouseenter');
-    wrapper.update();
+    //wrapper.update();
 
     for (let i = 1; i <= 4; i += 1) {
       if (i === 2) {
@@ -65,7 +111,7 @@ describe('<ImageCollage />', () => {
     }
     
     wrapper.find('.smallImage3').simulate('mouseenter');
-    wrapper.update();
+    //wrapper.update();
 
     for (let i = 1; i <= 4; i += 1) {
       if (i === 3) {
@@ -76,7 +122,7 @@ describe('<ImageCollage />', () => {
     }
     
     wrapper.find('.smallImage4').simulate('mouseenter');
-    wrapper.update();
+    //wrapper.update();
 
     for (let i = 1; i <= 4; i += 1) {
       if (i === 4) {
@@ -87,7 +133,7 @@ describe('<ImageCollage />', () => {
     }
     
     wrapper.find('.bigImage').simulate('mouseenter');
-    wrapper.update();
+    //wrapper.update();
 
     for (let i = 1; i <= 4; i += 1) {
       expect(wrapper.state().opacity[`smallImage${i}`]).toBe(0.4);

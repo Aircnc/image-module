@@ -59,29 +59,23 @@ describe('<Gallery />', () => {
     });
   });
 
-  it('showSlides should update n state', () => {
-    const wrapper = shallow(<Gallery />); // mount/render/shallow when applicable
-    const oldN = wrapper.state().n;
-    expect(oldN).toBe(0);
-    wrapper.setState({ images: sampleUrls2.images });
-    wrapper.update();
-    const { showSlides } = wrapper.instance();
-    showSlides(5);
-
-    // const newN = wrapper.state().n;
-    // expect(newN).toBe(5);
-    // expect(newN).not.toBe(oldN);
-  });
-
   it('handleShowPhotoList should update showSlideShow state', () => {
     const wrapper = shallow(<Gallery />); // mount/render/shallow when applicable
     const oldShowSlideShow = wrapper.state().showSlideShow;
     expect(oldShowSlideShow).toBe(true);
-
     const { handleShowPhotoList } = wrapper.instance();
     handleShowPhotoList();
-
     const newShowSlideShow = wrapper.state().showSlideShow;
     expect(newShowSlideShow).toBe(false);
   });
+
+  it('when mouse is clicked on handleShowPhotoList, it should update showSlideShow correctly', () => {
+    const wrapper = shallow(<Gallery />);
+    const oldShowSlideShow = wrapper.state().showSlideShow;
+    expect(oldShowSlideShow).toBe(true);
+    wrapper.find('#handleShowPhotoList').simulate('click');
+    const newShowSlideShow = wrapper.state().showSlideShow;
+    expect(newShowSlideShow).toBe(false);
+  });
+
 });

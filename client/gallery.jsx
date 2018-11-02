@@ -119,7 +119,6 @@ class Gallery extends React.Component {
 
   showSlides(n) {
     const { images } = this.state;
-    console.log(images);
     const $enlargedImage = $('#enlargedImage');
     const url = images[n].imageUrl;
     $enlargedImage.html(`<img className ='slideShowImage' id='curImg' src=${url}></img>`);
