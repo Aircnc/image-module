@@ -79,4 +79,26 @@ describe('<Gallery />', () => {
     expect(newShowSlideShow).toBe(false);
   });
 
+  it('createSlideshowImages should return an array of length lareger than 0', () => {
+    const wrapper = shallow(<Gallery />);
+    let slideshows = wrapper.instance().createSlideshowImages();
+    expect(slideshows.length).toBeGreaterThan(0);
+  });
+
+  it('showSlides() should update the url state', () => {
+    const wrapper = shallow(<Gallery />);
+    let oldN = wrapper.state().n;
+    let oldUrl = wrapper.state().url;
+
+    expect(oldN).toBe(0);
+    expect(oldUrl).toBe('');
+
+    wrapper.instance().showSlides(9);
+
+    let newN = wrapper.state().n;
+    let newUrl = wrapper.state().url;  
+
+    expect(newN).toBe(9);
+    expect(newUrl).not.toBe(oldUrl);
+  });
 });

@@ -211,6 +211,7 @@ class ImageCollage extends React.Component {
         <div className={`item${i}`}>
           <img
             alt=""
+            key={i}
             onMouseEnter={e => this.handleHover(e.target)}
             onMouseLeave={e => this.handleMouseLeave(e)}
             onClick={({ target }) => handleClick('gallery', target, i)}

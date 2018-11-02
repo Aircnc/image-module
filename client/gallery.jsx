@@ -82,18 +82,23 @@ margin: 0 auto;
 background-color: #262626;
 `;
 
+const LargeImgTag = styled.img`
+width: 100%;
+height:100%;
+`;
+
 class Gallery extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       n: 0,
       images: sampleUrls,
+      url: '',
       shiftPixels: 0,
       shiftFactor: 0,
       showSlideShow: true,
     };
 
-    $('#myModal').css('display', 'block');
     this.handleImageClick = this.handleImageClick.bind(this);
     this.handleLeftRight = this.handleLeftRight.bind(this);
     this.createSlideshowImages = this.createSlideshowImages.bind(this);
@@ -120,12 +125,11 @@ class Gallery extends React.Component {
 
   showSlides(n) {
     const { images } = this.state;
-    const $enlargedImage = $('#enlargedImage');
     const url = images[n].imageUrl;
-    $enlargedImage.html(`<img className ='slideShowImage' id='curImg' src=${url}></img>`);
     this.setState(
       {
         n,
+        url,
       },
     );
   }
@@ -170,7 +174,6 @@ class Gallery extends React.Component {
 
   createSlideshowImages() {
     const { shiftPixels, images, n } = this.state;
-    console.log(n);
     const slideshows = [];
     images.forEach((image, idx) => {
       const DOM = (
@@ -208,7 +211,7 @@ class Gallery extends React.Component {
 
   render() {
     const { handleClick } = this.props;
-    const { showSlideShow } = this.state;
+    const { showSlideShow, url } = this.state;
 
     return (
       <div className="gallery">
@@ -233,7 +236,12 @@ class Gallery extends React.Component {
         </div>
 
         <Modal id="myModals">
-          <LargeImage id="enlargedImage" />
+          <LargeImage >
+            <LargeImgTag 
+            id='curImg' 
+            src= {url} /> 
+          </LargeImage>
+
           <SlideText showSlideShow={showSlideShow}>
             {this.showCurImageInfo()}
             <div id="handleShowPhotoList" onClick={() => this.handleShowPhotoList()}>

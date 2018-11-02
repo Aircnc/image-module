@@ -40,11 +40,11 @@ describe('<ImageCollage />', () => {
     expect(instance.handleHover).toBeDefined();
   });
 
-  xit('OnClick on images should return a function', () => {
-    const wrapper = mount(<ImageCollage />); // mount/render/shallow when applicable
-    wrapper.find('.smallImage3').simulate('click');
-    wrapper.find('.smallImage4').simulate('click');
-  });
+  // xit('OnClick on images should return a function', () => { TODO:
+  //   const wrapper = mount(<ImageCollage />); // mount/render/shallow when applicable
+  //   wrapper.find('.smallImage3').simulate('click');
+  //   wrapper.find('.smallImage4').simulate('click');
+  // });
 
   it('OnMouseLeave work for all images', () => {
     const wrapper = mount(<ImageCollage />); // mount/render/shallow when applicable
