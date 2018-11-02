@@ -1,13 +1,13 @@
 import React from 'react';
 import { Button } from 'semantic-ui-react';
-import $ from 'jquery';
 import axios from 'axios';
-import sampleUrls from './../data/image.js';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import sampleUrls from '../data/image';
+
 const listingId = '46567b4d-9778-4403-89df-4ee08bc0f8cb';
-import styled, { css } from 'styled-components';
 
 const Wrapper = styled.div`
-
   *, *::before, *::after{
     box-sizing: border-box;
     transition: all 0.3s linear;
@@ -24,7 +24,7 @@ const Wrapper = styled.div`
     background-color: #484848;
   }
 
-  .item2 { 
+  .bigPicture { 
     grid-area: main;
     min-width:421px;
     width:  100%;
@@ -32,7 +32,7 @@ const Wrapper = styled.div`
     overflow:hidden;
     display: inline-block;
   }
-  .item3 { 
+  .item1 { 
     grid-area: menu;
     min-width:839px;
     width: 100%;
@@ -40,7 +40,7 @@ const Wrapper = styled.div`
     overflow:hidden;
     display: inline-block;
   }
-  .item4 { 
+  .item2 { 
     grid-area: right; 
     min-width:421px;
     width: 100%;
@@ -48,7 +48,7 @@ const Wrapper = styled.div`
     overflow:hidden;
     display: inline-block;
   }
-  .item5 { 
+  .item3 { 
     grid-area: footer1;
     min-width:421px;
     width: 100%;
@@ -57,7 +57,7 @@ const Wrapper = styled.div`
     display: inline-block;
   }
 
-  .item6 { 
+  .item4 { 
     grid-area: footer2; 
     min-width:421px;
     width: 100%;
@@ -150,33 +150,25 @@ class ImageCollage extends React.Component {
         bigImage: 1,
       },
     };
+
     this.handleHover = this.handleHover.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
+    this.createCollage = this.createCollage.bind(this);
   }
 
   componentDidMount() {
     axios.get(`/listings/${listingId}/images`)
       .then(({ data }) => {
         const newImages = data[0].images;
-        this.setState({ images: newImages });
+        this.setState(
+          {
+            images: newImages,
+          },
+        );
       });
   }
 
-  handleMouseLeave(e) {
-    const { className } = e.target;
-    const { opacity } = this.state;
-
-    Object.keys(opacity).forEach((imageClass) => {
-      opacity[imageClass] = 1;
-    });
-
-    this.setState({
-      opacity,
-    });
-  }
-
-  handleHover(e) {
-    const { className } = e.target;
+  handleHover({ className }) {
     const { opacity } = this.state;
 
     Object.keys(opacity).forEach((imageClass) => {
@@ -194,9 +186,44 @@ class ImageCollage extends React.Component {
     );
   }
 
-  
-  handleKeyPress(){
+  handleMouseLeave() {
+    const { opacity } = this.state;
 
+    Object.keys(opacity).forEach((imageClass) => {
+      opacity[imageClass] = 1;
+    });
+
+    this.setState(
+      {
+        opacity,
+      },
+    );
+  }
+
+  createCollage() {
+    const imageList = [];
+    const { images } = this.state;
+    const { handleClick } = this.props;
+
+    /* eslint-disable */
+    for (let i = 1; i < 5; i += 1) {
+      const DOM = (
+        <div className={`item${i}`}>
+          <img
+            alt=""
+            onMouseEnter={e => this.handleHover(e.target)}
+            onMouseLeave={e => this.handleMouseLeave(e)}
+            onClick={({ target }) => handleClick('gallery', target, i)}
+            className={`smallImage${i}`}
+            src={images[i].imageUrl}
+          />
+        </div>
+      );
+      imageList.push(DOM);
+    }
+    /* eslint-disable */
+
+    return imageList;
   }
 
   render() {
@@ -204,69 +231,24 @@ class ImageCollage extends React.Component {
     return (
       <div>
         <Wrapper opacity={opacity}>
-
           <Button className="Button3"> Share</Button>
           <Button className="Button2"> Save</Button>
           <Button className="Button"> View Photos</Button>
-          /* eslint-disable */
+
+          { /* eslint-disable */ }
           <div className="grid-container">
-            <div className="item2">
+            <div className="bigPicture">
               <img
                 alt= ""
-                onMouseEnter={this.handleHover} 
-                onMouseLeave={this.handleHover} 
-                onKeyPress={this.handleKeyPress}
-                onClick = {() => this.props.handleClick('gallery', 0)} 
+                onMouseEnter={(e) => this.handleHover(e.target)} 
+                onMouseLeave={(e) => this.handleMouseLeave(e)} 
+                onClick = {({target}) => this.props.handleClick('gallery', target, 0)} 
                 className = 'bigImage' 
                 src={images[0].imageUrl} 
               />
             </div>
-            <div className="item3">
-              <img 
-                alt="" 
-                onMouseEnter={(e) => this.handleHover(e)} 
-                onMouseLeave={(e) => this.handleMouseLeave(e)}
-                onKeyPress={this.handleKeyPress}
-                onClick= {() => this.props.handleClick('gallery', 1)} 
-                className= 'smallImage1' 
-                src={images[1].imageUrl} 
-              />
-            </div>
-            <div className="item4">
-              <img
-                alt="" 
-                onMouseEnter={(e) => this.handleHover(e)} 
-                onMouseLeave={(e) => this.handleMouseLeave(e)} 
-                onKeyPress={this.handleKeyPress}
-                onClick= {() => this.props.handleClick('gallery', 2)} 
-                className= "smallImage2" 
-                src={images[2].imageUrl}
-              />
-            </div>
-
-            <div className="item5">
-              <img 
-                alt="" 
-                onMouseEnter={(e) => this.handleHover(e)} 
-                onMouseLeave={(e) => this.handleMouseLeave(e)} 
-                onKeyPress={this.handleKeyPress}
-                onClick= {() => this.props.handleClick('gallery', 3)} 
-                className= "smallImage3"
-                src={images[3].imageUrl} 
-              />
-            </div>
-            <div className="item6">
-              <img
-                alt=""
-                onMouseEnter={(e) => this.handleHover(e)} 
-                onMouseLeave={(e) => this.handleMouseLeave(e)} 
-                onKeyPress={this.handleKeyPress}
-                onClick= {() => this.props.handleClick('gallery', 4)} 
-                className= "smallImage4"
-                src={images[4].imageUrl}
-              />    
-            /* eslint-enable */
-            </div>
+            {this.createCollage()}
+          { /* eslint-enable */ }
           </div>
         </Wrapper>
       </div>
@@ -274,3 +256,12 @@ class ImageCollage extends React.Component {
   }
 }
 export default ImageCollage;
+
+ImageCollage.propTypes = {
+  handleClick: PropTypes.func,
+};
+
+ImageCollage.defaultProps = {
+  handleClick: () => {
+  },
+};

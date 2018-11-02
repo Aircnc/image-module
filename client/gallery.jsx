@@ -8,17 +8,16 @@ import sampleUrls from '../data/image';
 const listingId = '46567b4d-9778-4403-89df-4ee08bc0f8cb';
 
 const Image = styled.img`
-transition: all 0.3s linear;
-opacity: 0.4;
 width: 100%;
 height: 100%;
 transition: all 0.1s ease-in-out;
 
 :hover {
-  transition: all 0.3s ease-in-out;
   opacity: 1;
 }
-
+:not(:hover) {
+  opacity: 0.4;
+}
 `;
 
 const Slides = styled.div`
@@ -28,6 +27,11 @@ height:100%;
 margin: 0 5px;
 transition: all 0.3s linear;
 transform: translate(${p => p.shiftPixels}px, 0%);
+
+.keepOpacity {
+  opacity: 1;
+}
+
 `;
 
 const SlideText = styled.div`
@@ -60,8 +64,8 @@ height: 100%;
 display: flex;
 justify-content: space-between;
 position:relative;
-${p => !p.showSlideShow && css`transform: translateY(70px);`};
 transition: all 0.3s linear;
+${p => !p.showSlideShow && css`transform: translateY(70px);`};
 `;
 
 const Modal = styled.div`
@@ -84,7 +88,7 @@ class Gallery extends React.Component {
     this.state = {
       n: 0,
       images: sampleUrls,
-      prevClicked: `navigateImage${props.clickedImg}`,
+      prevClicked: props.clickedImg,
       shiftPixels: 0,
       shiftFactor: 0,
       showSlideShow: true,
@@ -97,23 +101,24 @@ class Gallery extends React.Component {
     this.showCurImageInfo = this.showCurImageInfo.bind(this);
     this.handleShowPhotoList = this.handleShowPhotoList.bind(this);
     this.showSlides = this.showSlides.bind(this);
-
   }
 
   componentDidMount() {
     axios.get(`/listings/${listingId}/images`)
       .then(({ data }) => {
         const newImages = data[0].images;
-        console.log(newImages);
         this.setState(
           {
             images: newImages,
             shiftFactor: 2750 / newImages.length, // 2750 is approximate
           },
         );
-        const { clickedImg } = this.props;
-        $(`#navigateImage${clickedImg}`).css('opacity', '1');
-        this.showSlides(clickedImg);
+
+        const { prevClicked } = this.state;
+        const { n } = this.props;
+
+        prevClicked.add('keepOpacity');
+        this.showSlides(n);
       });
   }
 
@@ -122,18 +127,26 @@ class Gallery extends React.Component {
     const $enlargedImage = $('#enlargedImage');
     const url = images[n].imageUrl;
     $enlargedImage.html(`<img className ='slideShowImage' id='curImg' src=${url}></img>`);
-    this.setState({ n });
+    this.setState(
+      {
+        n,
+      },
+    );
   }
 
+  handleImageClick(n, { classList }) {
+    const { shiftPixels, shiftFactor } = this.state;
+    let { prevClicked } = this.state;
 
-  handleImageClick(n, { id }) {
-    const { prevClicked, shiftPixels, shiftFactor } = this.state;
-    let amountToShift = shiftPixels;
-    if (prevClicked !== null) {
-      $(`#${prevClicked}`).css('opacity', '0.4');
+    if (typeof prevClicked !== 'string') {
+      console.log('removing keepOpacity');
+      prevClicked.remove('keepOpacity');
     }
 
-    $(`#${id}`).css('opacity', '1');
+    let amountToShift = shiftPixels;
+
+    classList.add('keepOpacity');
+    prevClicked = classList;
 
     if (n < sampleUrls.length && n > 3) {
       amountToShift = -((n - 4) * shiftFactor);
@@ -144,7 +157,7 @@ class Gallery extends React.Component {
     this.setState(
       {
         n,
-        prevClicked: id,
+        prevClicked,
         shiftPixels: amountToShift,
       },
     );
@@ -156,7 +169,6 @@ class Gallery extends React.Component {
     let { n } = this.state;
     const { images } = this.state;
 
-    console.log(images);
     const oldN = n;
     if (direction === 'left') {
       if (n !== 0) {
@@ -169,22 +181,13 @@ class Gallery extends React.Component {
     }
     const value = {};
     value.id = `navigateImage${n}`;
-    this.setState({ prevClicked: `navigateImage${oldN}` });
+    this.setState(
+      {
+        prevClicked: `navigateImage${oldN}`,
+      },
+    );
     this.handleImageClick(n, value);
     this.showSlides(n);
-    
-  }
-
-  handleMouseEnter({ id }) {
-    $(`#${id}`).css('opacity', '1');
-  }
-
-  handleMouseLeave({ id }) {
-    const { prevClicked } = this.state;
-
-    if (prevClicked !== id) {
-      $(`#${id}`).css('opacity', '0.4');
-    }
   }
 
   createSlideshowImages() {
@@ -195,8 +198,6 @@ class Gallery extends React.Component {
         <Slides shiftPixels={shiftPixels}>
           <Image
             alt="slideShowImage"
-            onMouseEnter={e => this.handleMouseEnter(e.target)}
-            onMouseLeave={e => this.handleMouseLeave(e.target)}
             onClick={e => this.handleImageClick(idx, e.target)}
             id={`navigateImage${idx}`}
             src={image.imageUrl}
@@ -212,17 +213,18 @@ class Gallery extends React.Component {
 
   showCurImageInfo() {
     const { n, images } = this.state;
-    console.log(images.length);
     const numImages = images.length;
-    console.log(numImages);
 
     return (`${n + 1} / ${numImages}: ${images[n].description}`);
   }
 
   handleShowPhotoList() {
     const { showSlideShow } = this.state;
-
-    this.setState({ showSlideShow: !showSlideShow });
+    this.setState(
+      {
+        showSlideShow: !showSlideShow,
+      },
+    );
   }
 
   render() {
@@ -231,6 +233,8 @@ class Gallery extends React.Component {
 
     return (
       <div className="gallery">
+
+        { /* eslint-disable */ }
 
         <div id="return" onClick={() => handleClick('imageCollege') }>
           <svg viewBox="0 0 100 100" height="118px" width="118px">
@@ -252,7 +256,6 @@ class Gallery extends React.Component {
 
         <Modal id="myModals">
           <LargeImage id="enlargedImage" />
-          
           <SlideText showSlideShow={showSlideShow}>
             {this.showCurImageInfo()}
             <div id="handleShowPhotoList" onClick={() => this.handleShowPhotoList()}>
@@ -266,15 +269,23 @@ class Gallery extends React.Component {
           </Content>
           </Modal>
       </div>
-
-
     );
+
+        { /* eslint-enable */ }
   }
 }
 
 Gallery.propTypes = {
   clickedImg: PropTypes.number,
   handleClick: PropTypes.func,
+  n: PropTypes.number,
+};
+
+Gallery.defaultProps = {
+  clickedImg: 1,
+  handleClick: () => {
+  },
+  n: 1,
 };
 
 export default Gallery;

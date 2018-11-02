@@ -10,6 +10,7 @@ class App extends React.Component {
     this.state = {
       view: 'imageCollege',
       clickedImg: 0,
+      n: 0,
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -17,18 +18,20 @@ class App extends React.Component {
     this.renderView = this.renderView.bind(this);
   }
 
-  changeView(newView, n) {
+  changeView(newView, { classList } = [], n) {
     let { clickedImg } = this.state;
 
+    //debugger;
     if (newView === 'gallery') {
       console.log('newView:', newView);
-      console.log('n: ', n);
-      clickedImg = n;
+      console.log('n: ', classList);
+      clickedImg = classList;
     }
 
     this.setState({
       view: newView,
       clickedImg,
+      n,
     });
   }
 
@@ -38,14 +41,13 @@ class App extends React.Component {
   }
 
   renderView() {
-    const { view, clickedImg } = this.state;
+    const { view, clickedImg, n } = this.state;
     let DOM;
     if (view === 'imageCollege') {
       DOM = <ImageCollage handleClick={this.changeView} />;
     } else if (view === 'gallery') {
-      DOM = <Gallery handleClick={this.changeView} clickedImg={clickedImg} />;
+      DOM = <Gallery handleClick={this.changeView} clickedImg={clickedImg} n={n} />;
     }
-
     return DOM;
   }
 
