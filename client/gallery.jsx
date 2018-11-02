@@ -28,7 +28,7 @@ margin: 0 5px;
 transition: all 0.3s linear;
 transform: translate(${p => p.shiftPixels}px, 0%);
 
-.keepOpacity {
+#navigateImage${p => p.n} {
   opacity: 1;
 }
 
@@ -88,7 +88,6 @@ class Gallery extends React.Component {
     this.state = {
       n: 0,
       images: sampleUrls,
-      prevClicked: props.clickedImg,
       shiftPixels: 0,
       shiftFactor: 0,
       showSlideShow: true,
@@ -114,10 +113,7 @@ class Gallery extends React.Component {
           },
         );
 
-        const { prevClicked } = this.state;
         const { n } = this.props;
-
-        prevClicked.add('keepOpacity');
         this.showSlides(n);
       });
   }
@@ -134,19 +130,9 @@ class Gallery extends React.Component {
     );
   }
 
-  handleImageClick(n, { classList }) {
+  handleImageClick(n) {
     const { shiftPixels, shiftFactor } = this.state;
-    let { prevClicked } = this.state;
-
-    if (typeof prevClicked !== 'string') {
-      console.log('removing keepOpacity');
-      prevClicked.remove('keepOpacity');
-    }
-
     let amountToShift = shiftPixels;
-
-    classList.add('keepOpacity');
-    prevClicked = classList;
 
     if (n < sampleUrls.length && n > 3) {
       amountToShift = -((n - 4) * shiftFactor);
@@ -157,7 +143,6 @@ class Gallery extends React.Component {
     this.setState(
       {
         n,
-        prevClicked,
         shiftPixels: amountToShift,
       },
     );
@@ -169,7 +154,6 @@ class Gallery extends React.Component {
     let { n } = this.state;
     const { images } = this.state;
 
-    const oldN = n;
     if (direction === 'left') {
       if (n !== 0) {
         n -= 1;
@@ -179,23 +163,18 @@ class Gallery extends React.Component {
         n += 1;
       }
     }
-    const value = {};
-    value.id = `navigateImage${n}`;
-    this.setState(
-      {
-        prevClicked: `navigateImage${oldN}`,
-      },
-    );
-    this.handleImageClick(n, value);
+
+    this.handleImageClick(n);
     this.showSlides(n);
   }
 
   createSlideshowImages() {
-    const { shiftPixels, images } = this.state;
+    const { shiftPixels, images, n } = this.state;
+    console.log(n);
     const slideshows = [];
     images.forEach((image, idx) => {
       const DOM = (
-        <Slides shiftPixels={shiftPixels}>
+        <Slides shiftPixels={shiftPixels} n={n}>
           <Image
             alt="slideShowImage"
             onClick={e => this.handleImageClick(idx, e.target)}
@@ -235,7 +214,6 @@ class Gallery extends React.Component {
       <div className="gallery">
 
         { /* eslint-disable */ }
-
         <div id="return" onClick={() => handleClick('imageCollege') }>
           <svg viewBox="0 0 100 100" height="118px" width="118px">
             <path d="m23.25 24c-.19 0-.38-.07-.53-.22l-10.72-10.72-10.72 10.72c-.29.29-.77.29-1.06 0s-.29-.77 0-1.06l10.72-10.72-10.72-10.72c-.29-.29-.29-.77 0-1.06s.77-.29 1.06 0l10.72 10.72 10.72-10.72c.29-.29.77-.29 1.06 0s .29.77 0 1.06l-10.72 10.72 10.72 10.72c.29.29.29.77 0 1.06-.15.15-.34.22-.53.22" />
@@ -270,19 +248,16 @@ class Gallery extends React.Component {
           </Modal>
       </div>
     );
-
         { /* eslint-enable */ }
   }
 }
 
 Gallery.propTypes = {
-  clickedImg: PropTypes.number,
   handleClick: PropTypes.func,
   n: PropTypes.number,
 };
 
 Gallery.defaultProps = {
-  clickedImg: 1,
   handleClick: () => {
   },
   n: 1,

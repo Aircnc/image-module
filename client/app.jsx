@@ -21,7 +21,6 @@ class App extends React.Component {
   changeView(newView, { classList } = [], n) {
     let { clickedImg } = this.state;
 
-    //debugger;
     if (newView === 'gallery') {
       console.log('newView:', newView);
       console.log('n: ', classList);
@@ -46,7 +45,7 @@ class App extends React.Component {
     if (view === 'imageCollege') {
       DOM = <ImageCollage handleClick={this.changeView} />;
     } else if (view === 'gallery') {
-      DOM = <Gallery handleClick={this.changeView} clickedImg={clickedImg} n={n} />;
+      DOM = <Gallery handleClick={this.changeView} n={n} />;
     }
     return DOM;
   }

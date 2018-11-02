@@ -4,6 +4,7 @@ import Gallery from '../client/gallery';
 import sampleUrls from '../data/image';
 import sampleUrls2 from '../data/image2';
 
+/* eslint-disable */
 
 describe('<Gallery />', () => {
   it('should have 6 states', () => {
