@@ -5,8 +5,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import sampleUrls from '../data/image';
 
-const listingId = '46567b4d-9778-4403-89df-4ee08bc0f8cb';
-
 const Wrapper = styled.div`
   *, *::before, *::after{
     box-sizing: border-box;
@@ -125,6 +123,7 @@ const Wrapper = styled.div`
     right:150px;
     width:94px;
   }
+  
   .Button3 {
     position:absolute;
     z-index: 10;
@@ -157,6 +156,8 @@ class ImageCollage extends React.Component {
   }
 
   componentDidMount() {
+    const listingId = window.location.href.slice(31, -1);
+
     axios.get(`/listings/${listingId}/images`)
       .then(({ data }) => {
         const newImages = data[0].images;
@@ -232,8 +233,8 @@ class ImageCollage extends React.Component {
     return (
       <div>
         <Wrapper opacity={opacity}>
-          <Button className="Button3"> Share</Button>
-          <Button className="Button2"> Save</Button>
+          <Button className="Button3">⎗ Share</Button>
+          <Button className="Button2"> ♡ Save</Button>
           <Button className="Button"> View Photos</Button>
 
           { /* eslint-disable */ }
@@ -244,7 +245,7 @@ class ImageCollage extends React.Component {
                 onMouseEnter={(e) => this.handleHover(e.target)} 
                 onMouseLeave={(e) => this.handleMouseLeave(e)} 
                 onClick = {({target}) => this.props.handleClick('gallery', target, 0)} 
-                className = 'bigImage' 
+                className = "bigImage" 
                 src={images[0].imageUrl} 
               />
             </div>

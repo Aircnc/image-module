@@ -3,15 +3,14 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const db = require('./../database/index');
 
-const port = 3001;
+const port = 3003;
 const app = express();
 
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, '/../public')));
+app.use('/listings/:id', express.static(path.join(__dirname, '../public')));
 
 app.get('/listings/:id/images', (req, res) => {
   const { id } = req.params;
-  console.log(id);
 
   db.Images.find({ listingId: id })
     .then((listingImages) => {
