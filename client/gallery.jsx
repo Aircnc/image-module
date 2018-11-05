@@ -1,17 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import $ from 'jquery';
 import styled, { css } from 'styled-components';
 import axios from 'axios';
 import sampleUrls from '../data/image';
-
-const listingId = '46567b4d-9778-4403-89df-4ee08bc0f8cb';
 
 const Image = styled.img`
 width: 100%;
 height: 100%;
 transition: all 0.1s ease-in-out;
-
 :hover {
   opacity: 1;
 }
@@ -25,7 +21,6 @@ transition: all 0.3s linear;
 width: 100%;
 height:100%;
 margin: 0 5px;
-transition: all 0.3s linear;
 transform: translate(${p => p.shiftPixels}px, 0%);
 
 #navigateImage${p => p.n} {
@@ -108,6 +103,8 @@ class Gallery extends React.Component {
   }
 
   componentDidMount() {
+    const listingId = window.location.href.slice(31, -1);
+
     axios.get(`/listings/${listingId}/images`)
       .then(({ data }) => {
         const newImages = data[0].images;

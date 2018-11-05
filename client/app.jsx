@@ -55,5 +55,6 @@ class App extends React.Component {
   }
 }
 ReactDOM.render(<App />, document.getElementById('app'));
+window.ImageModule = App;
 
 export default App;
