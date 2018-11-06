@@ -3,7 +3,14 @@ import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import axios from 'axios';
 import sampleUrls from '../data/image';
+import { Button } from 'semantic-ui-react';
 
+const Wrapper = styled.div`
+  z-index:100;
+  width: 100%;
+  height: 110vh;
+  background-color: #262626;
+`;
 const Image = styled.img`
 width: 100%;
 height: 100%;
@@ -12,7 +19,6 @@ transition: all 0.1s ease-in-out;
   opacity: 1;
 }
 :not(:hover) {
-  opacity: 0.4;
 }
 `;
 
@@ -33,10 +39,10 @@ const SlideText = styled.div`
 transition: all 0.3s linear;
 position: absolute;
 z-index: 100;
-top:86%;
+top:90%;
 left: 20.5%;
 color:white;
-width: 59%;
+width: 60%;
 display:flex;
 justify-content:space-between;
 ${p => !p.showSlideShow && css`top: 96%;`};
@@ -46,7 +52,7 @@ transition: all 0.3s linear;
 position: relative;
 overflow: hidden;
 top:120px;
-width: 60%;
+width: 66%;
 height: 70px;
 background-color: #262626;
 margin: 0 auto;
@@ -69,17 +75,43 @@ height:100%;
 `;
 
 const LargeImage = styled.div`
+margin: 0 auto;
 position: relative;
 top: 84px;
-width: 60%;
-height:70%;
-margin: 0 auto;
+width: 66%;
+height:66%;
 background-color: #262626;
 `;
 
 const LargeImgTag = styled.img`
 width: 100%;
 height:100%;
+
+`;
+
+const ButtonWrapper = styled.div`
+
+#leftButton {
+  fill: white;
+  position: absolute;
+  left: 0%;
+  top:40%;
+}
+
+#rightButton {
+  fill: white;
+  position: absolute;
+  left: 96%;
+  top:40%;
+}
+
+#return {
+  fill: white;
+  position: absolute;
+  left:96.5%;
+  top:10%;
+  width: 30px;
+}
 `;
 
 class Gallery extends React.Component {
@@ -111,7 +143,7 @@ class Gallery extends React.Component {
         this.setState(
           {
             images: newImages,
-            shiftFactor: 2750 / newImages.length, // 2750 is approximate
+            shiftFactor: 2600 / newImages.length, // 2750 is approximate
           },
         );
 
@@ -214,43 +246,50 @@ class Gallery extends React.Component {
       <div className="gallery">
 
         { /* eslint-disable */ }
-        <div id="return" onClick={() => handleClick('imageCollege') }>
-          <svg viewBox="0 0 100 100" height="118px" width="118px">
-            <path d="m23.25 24c-.19 0-.38-.07-.53-.22l-10.72-10.72-10.72 10.72c-.29.29-.77.29-1.06 0s-.29-.77 0-1.06l10.72-10.72-10.72-10.72c-.29-.29-.29-.77 0-1.06s.77-.29 1.06 0l10.72 10.72 10.72-10.72c.29-.29.77-.29 1.06 0s .29.77 0 1.06l-10.72 10.72 10.72 10.72c.29.29.29.77 0 1.06-.15.15-.34.22-.53.22" />
-          </svg>
-        </div>
+      <Wrapper>
+        <ButtonWrapper>
+          <div id="return" onClick={() => handleClick('imageCollege') }>
+            <svg viewBox="0 0 100 100" height="118px" width="118px">
+              <path d="m23.25 24c-.19 0-.38-.07-.53-.22l-10.72-10.72-10.72 10.72c-.29.29-.77.29-1.06 0s-.29-.77 0-1.06l10.72-10.72-10.72-10.72c-.29-.29-.29-.77 0-1.06s.77-.29 1.06 0l10.72 10.72 10.72-10.72c.29-.29.77-.29 1.06 0s .29.77 0 1.06l-10.72 10.72 10.72 10.72c.29.29.29.77 0 1.06-.15.15-.34.22-.53.22" />
+            </svg>
+          </div>
 
-        <div id='leftButton' onClick={() => this.handleLeftRight('left')}>
-          <svg viewBox="0 0 100 100" height="430px" width="430px">
-            <path d="m13.7 16.29a1 1 0 1 1 -1.42 1.41l-8-8a1 1 0 0 1 0-1.41l8-8a1 1 0 1 1 1.42 1.41l-7.29 7.29z" />
-          </svg>
-        </div>
+          <div id='leftButton' onClick={() => this.handleLeftRight('left')}>
+            <svg viewBox="0 0 100 100" height="430px" width="430px">
+              <path d="m13.7 16.29a1 1 0 1 1 -1.42 1.41l-8-8a1 1 0 0 1 0-1.41l8-8a1 1 0 1 1 1.42 1.41l-7.29 7.29z" />
+            </svg>
+          </div>
 
-        <div id='rightButton' onClick={() => this.handleLeftRight('right')}>
-          <svg viewBox="0 0 100 100" height="430px" width="430px">
-            <path d="m4.29 1.71a1 1 0 1 1 1.42-1.41l8 8a1 1 0 0 1 0 1.41l-8 8a1 1 0 1 1 -1.42-1.41l7.29-7.29z" />
-          </svg>
-        </div>
+          <div id='rightButton' onClick={() => this.handleLeftRight('right')}>
+            <svg viewBox="0 0 100 100" height="430px" width="430px">
+              <path d="m4.29 1.71a1 1 0 1 1 1.42-1.41l8 8a1 1 0 0 1 0 1.41l-8 8a1 1 0 1 1 -1.42-1.41l7.29-7.29z" />
+            </svg>
+          </div>
+        </ButtonWrapper>
+
+
+
 
         <Modal id="myModals">
           <LargeImage >
-            <LargeImgTag 
-            id='curImg' 
-            src= {url} /> 
+              <LargeImgTag 
+              id='curImg' 
+              src= {url} /> 
+            <SlideText showSlideShow={showSlideShow}>
+              {this.showCurImageInfo()}
+              <div id="handleShowPhotoList" onClick={() => this.handleShowPhotoList()}>
+                {(showSlideShow ? 'Hide photo list ▼' : 'Show photo list ▲')}
+              </div>
+            </SlideText>
           </LargeImage>
 
-          <SlideText showSlideShow={showSlideShow}>
-            {this.showCurImageInfo()}
-            <div id="handleShowPhotoList" onClick={() => this.handleShowPhotoList()}>
-              {(showSlideShow ? 'Hide photo list ▼' : 'Show photo list ▲')}
-            </div>
-          </SlideText>
           <Content>
             <SlideShow showSlideShow={showSlideShow}>
               {this.createSlideshowImages()}
             </SlideShow>
           </Content>
           </Modal>
+            </Wrapper>
       </div>
     );
         { /* eslint-enable */ }
