@@ -11,10 +11,10 @@ const Wrapper = styled.div`
     transition: all 0.3s linear;
   }
 
-  .grid-container {
+  .grid-containerImage {
     z-index: 0;
     width: 100%;
-    height:63%;
+    height:100%;
     display: grid;
     grid-template-areas:
     'menu menu main right'
@@ -24,42 +24,44 @@ const Wrapper = styled.div`
 
   .bigPicture { 
     grid-area: main;
-    min-width:421px;
+    min-width:400px;
+    max-width:421px;
     width:  100%;
-    height:100%;
+    height:300px; 
     overflow:hidden;
     display: inline-block;
   }
   .item1 { 
     grid-area: menu;
-    min-width:839px;
+    min-width: 830px; 
+    max-width:850px;
     width: 100%;
-    height:100%;
+    height:600px;
     overflow:hidden;
     display: inline-block;
   }
   .item2 { 
-    grid-area: right; 
-    min-width:421px;
+    grid-area: right;
+    max-width:421px; 
     width: 100%;
-    height:100%;
+    height: 300px;
     overflow:hidden;
     display: inline-block;
   }
   .item3 { 
     grid-area: footer1;
-    min-width:421px;
+    max-width:421px;
     width: 100%;
-    height:100%;
+    height: 300px;
     overflow:hidden;
     display: inline-block;
   }
 
   .item4 { 
     grid-area: footer2; 
-    min-width:421px;
+    max-width:421px;
     width: 100%;
-    height:100%;
+    height: 300px;
     overflow:hidden;
     display: inline-block;
   }
@@ -67,7 +69,7 @@ const Wrapper = styled.div`
   
   .bigImage {
     width: 100%;
-    height:100%;
+    height: 300px;
     border: solid rgb(95,95,95);
     border-width: 1px;
     opacity: ${p => p.opacity.bigImage};
@@ -156,10 +158,10 @@ class ImageCollage extends React.Component {
   }
 
   componentDidMount() {
-    const listingId = window.location.href.slice(31, -1);
-
-    axios.get(`/listings/${listingId}/images`)
+    let listingId = window.location.href.slice(31, -1);
+    axios.get(`http://127.0.0.1:3003/listings/${listingId}/images`)
       .then(({ data }) => {
+        console.log(data);
         const newImages = data[0].images;
         this.setState(
           {
@@ -230,15 +232,17 @@ class ImageCollage extends React.Component {
 
   render() {
     const { images, opacity } = this.state;
+    
+    // <Button className="Button3">⎗ Share</Button>
+    // <Button className="Button2"> ♡ Save</Button>
+    // <Button className="Button"> View Photos</Button>
+
     return (
       <div>
         <Wrapper opacity={opacity}>
-          <Button className="Button3">⎗ Share</Button>
-          <Button className="Button2"> ♡ Save</Button>
-          <Button className="Button"> View Photos</Button>
 
           { /* eslint-disable */ }
-          <div className="grid-container">
+          <div className="grid-containerImage">
             <div className="bigPicture">
               <img
                 alt= ""
