@@ -40,7 +40,7 @@ class App extends React.Component {
   }
 
   renderView() {
-    const { view, clickedImg, n } = this.state;
+    const { view, n } = this.state;
     let DOM;
     if (view === 'imageCollege') {
       DOM = <ImageCollage handleClick={this.changeView} />;
@@ -54,7 +54,6 @@ class App extends React.Component {
     return this.renderView();
   }
 }
-ReactDOM.render(<App />, document.getElementById('app'));
-window.ImageModule = App;
 
+ReactDOM.render(<App />, document.getElementById('luan'));
 export default App;

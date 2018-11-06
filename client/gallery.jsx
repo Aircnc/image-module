@@ -104,8 +104,8 @@ class Gallery extends React.Component {
 
   componentDidMount() {
     const listingId = window.location.href.slice(31, -1);
-
-    axios.get(`/listings/${listingId}/images`)
+    console.log('listingId in gallery: ', listingId);
+    axios.get(`http://127.0.0.1:3003/listings/${listingId}/images`)
       .then(({ data }) => {
         const newImages = data[0].images;
         this.setState(
