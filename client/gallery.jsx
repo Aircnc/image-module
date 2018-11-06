@@ -37,12 +37,10 @@ transform: translate(${p => p.shiftPixels}px, 0%);
 
 const SlideText = styled.div`
 transition: all 0.3s linear;
-position: absolute;
+position: relative;
 z-index: 100;
-top:90%;
-left: 20.5%;
 color:white;
-width: 60%;
+width: 100%;
 display:flex;
 justify-content:space-between;
 ${p => !p.showSlideShow && css`top: 96%;`};
