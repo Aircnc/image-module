@@ -10,16 +10,17 @@ const Wrapper = styled.div`
   width: 100%;
   height: 120vh;
   background-color: #262626;
+  
 `;
 const Image = styled.img`
+cursor: pointer;
+opacity: 0.4;
 width: 100%;
 height: 100%;
 transition: all 0.1s ease-in-out;
-:hover {
-  opacity: 1;
-}
-:not(:hover) {
-}
+  :hover {
+    opacity: 1;
+  }
 `;
 
 const Slides = styled.div`
@@ -75,8 +76,8 @@ const LargeImage = styled.div`
 margin: 0 auto;
 position: relative;
 top: 84px;
-width: 66%;
-height:66%;
+width: 60%;
+height:60%;
 background-color: #262626;
 `;
 
@@ -102,7 +103,7 @@ const ButtonWrapper = styled.div`
   fill: white;
   position: absolute;
   left:96.5%;
-  top:10%;
+  top:18%;
   width: 30px;
 }
 `;

@@ -6,11 +6,11 @@ import { Input } from 'semantic-ui-react';
 const Nav = () => (
   <div className="nav-container">
     <div id="logo">
-      <img alt="" src="https://1ststepaccounting.com/wp-content/uploads/2017/07/airbnb-logo.png" />
+      <img id="logoImg" alt="" src="https://1ststepaccounting.com/wp-content/uploads/2017/07/airbnb-logo.png" />
     </div>
-    <div id="search-bar-wrapper">
-      <Input id="search-bar" size="big" icon="search" iconPosition="left" placeholder="Search" />
-    </div>
+
+    <Input id="search-bar" size="big" icon="search" iconPosition="left" placeholder="Search" />
+    
     <div id="list1" className="rectangle">Start hosting</div>
     <div id="list2" className="rectangle">Saved</div>
     <div id="list3" className="rectangle">Trips</div>
