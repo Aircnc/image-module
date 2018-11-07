@@ -9,7 +9,7 @@
   "scripts": {
     "test": "jest --coverage",
     "react-dev": "webpack -d --watch",
-    "start": "nodemon ./server/index.js",
+    "start": "node ./server/index.js",
     "seed": "node ./database/seed.js"
   },
   "author": "",

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Gallery from './gallery.jsx';
-import Nav from './Nav.jsx';
+// import Nav from './Nav.jsx';
 import ImageCollage from './imageCollage.jsx';
 import Modal from 'react-responsive-modal';
 
@@ -71,5 +71,5 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('luan'));
+ReactDOM.render(<App />, document.getElementById('images'));
 export default App;
