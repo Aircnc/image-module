@@ -5,76 +5,49 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import sampleUrls from '../data/image';
 
+
+
 const Wrapper = styled.div`
+
   *, *::before, *::after{
-    box-sizing: border-box;
     transition: all 0.3s linear;
   }
 
   .grid-containerImage {
-    z-index: 0;
+    overflow: hidden;
+    display: flex;
     width: 100%;
-    height:100%;
-    display: grid;
-    grid-template-areas:
-    'menu menu main right'
-    'menu menu footer1 footer2';
+    height:660px;
     background-color: #484848;
   }
-
-  .bigPicture { 
-    grid-area: main;
-    min-width:400px;
-    max-width:421px;
-    width:  100%;
-    height:300px; 
-    overflow:hidden;
-    display: inline-block;
-  }
-  .item1 { 
-    grid-area: menu;
-    min-width: 830px; 
-    max-width:850px;
-    width: 100%;
-    height:600px;
-    overflow:hidden;
-    display: inline-block;
-  }
-  .item2 { 
-    grid-area: right;
-    max-width:421px; 
-    width: 100%;
-    height: 300px;
-    overflow:hidden;
-    display: inline-block;
-  }
-  .item3 { 
-    grid-area: footer1;
-    max-width:421px;
-    width: 100%;
-    height: 300px;
-    overflow:hidden;
-    display: inline-block;
-  }
-
-  .item4 { 
-    grid-area: footer2; 
-    max-width:421px;
-    width: 100%;
-    height: 300px;
-    overflow:hidden;
-    display: inline-block;
-  }
-
   
+  .bigPictureContainer { 
+    display: flex;
+    width: 50%;
+    height:660px;
+    overflow:hidden;
+  }
   .bigImage {
     width: 100%;
-    height: 300px;
+    height: 100%;
     border: solid rgb(95,95,95);
     border-width: 1px;
     opacity: ${p => p.opacity.bigImage};
   }
-  
+
+  .smallImageContainer {
+    display:flex;
+    flex-wrap: wrap;
+    width: 50%;
+    overflow:hidden;
+  }
+
+  .smallImageDiv1, .smallImageDiv2, .smallImageDiv3, .smallImageDiv4   { 
+    width:  50%;
+    height:330px; 
+    overflow:hidden;
+  }
+
   .smallImage1, .smallImage2, .smallImage3, .smallImage4 {
     width: 100%;
     height:100%;
@@ -99,14 +72,15 @@ const Wrapper = styled.div`
     opacity: ${p => p.opacity.smallImage4};
   }
   
+  .bigImage:hover, .smallImage1:hover, .smallImage2:hover, .smallImage3:hover, .smallImage4:hover {
+  transform: scale(1.05);
+  }
+
+
   img:hover {
     cursor: pointer;
   }
   
-  .bigImage:hover, .smallImage1:hover, .smallImage2:hover, .smallImage3:hover, .smallImage4:hover {
-    transform: scale(1.05);
-  }
-
   .Button {
     z-index: 10;
     position:absolute;
@@ -211,10 +185,10 @@ class ImageCollage extends React.Component {
     /* eslint-disable */
     for (let i = 1; i < 5; i += 1) {
       const DOM = (
-        <div className={`item${i}`}>
+        <div className={`smallImageDiv${i}`}>
           <img
             alt=""
-            key={i}
+            key={ i }
             onMouseEnter={e => this.handleHover(e.target)}
             onMouseLeave={e => this.handleMouseLeave(e)}
             onClick={({ target }) => handleClick('gallery', target, i)}
@@ -239,11 +213,13 @@ class ImageCollage extends React.Component {
 
     return (
       <div>
+
         <Wrapper opacity={opacity}>
 
           { /* eslint-disable */ }
           <div className="grid-containerImage">
-            <div className="bigPicture">
+
+            <div className="bigPictureContainer">
               <img
                 alt= ""
                 onMouseEnter={(e) => this.handleHover(e.target)} 
@@ -253,10 +229,16 @@ class ImageCollage extends React.Component {
                 src={images[0].imageUrl} 
               />
             </div>
-            {this.createCollage()}
+
+            <div className="smallImageContainer">
+              {this.createCollage()}
+            </div>
+
           { /* eslint-enable */ }
+
           </div>
         </Wrapper>
+
       </div>
     );
   }

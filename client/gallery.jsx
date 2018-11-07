@@ -8,7 +8,7 @@ import { Button } from 'semantic-ui-react';
 const Wrapper = styled.div`
   z-index:100;
   width: 100%;
-  height: 110vh;
+  height: 120vh;
   background-color: #262626;
 `;
 const Image = styled.img`
@@ -28,22 +28,21 @@ width: 100%;
 height:100%;
 margin: 0 5px;
 transform: translate(${p => p.shiftPixels}px, 0%);
-
 #navigateImage${p => p.n} {
   opacity: 1;
 }
-
 `;
 
 const SlideText = styled.div`
 transition: all 0.3s linear;
-position: relative;
+position: absolute;
 z-index: 100;
+top:105%;
 color:white;
 width: 100%;
 display:flex;
 justify-content:space-between;
-${p => !p.showSlideShow && css`top: 96%;`};
+${p => !p.showSlideShow && css`top: 110%;`};
 `;
 const Content = styled.div`
 transition: all 0.3s linear;
@@ -84,25 +83,21 @@ background-color: #262626;
 const LargeImgTag = styled.img`
 width: 100%;
 height:100%;
-
 `;
 
 const ButtonWrapper = styled.div`
-
 #leftButton {
   fill: white;
   position: absolute;
   left: 0%;
   top:40%;
 }
-
 #rightButton {
   fill: white;
   position: absolute;
   left: 96%;
   top:40%;
 }
-
 #return {
   fill: white;
   position: absolute;
