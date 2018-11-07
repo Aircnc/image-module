@@ -10,6 +10,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../public')));
+app.use('/listings/:id/', express.static(path.join(__dirname, '../public')));
 
 app.get('/listings/:id/images', cors(), (req, res) => {
   const { id } = req.params;

@@ -29,11 +29,12 @@
     "react": "^16.6.0",
     "react-css-modules": "^4.7.7",
     "react-dom": "^16.6.0",
+    "react-responsive-modal": "^3.5.0",
     "react-transition-group": "^2.5.0",
     "request": "^2.88.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.83.0",
-    "styled-components": "^4.0.3"
+    "styled-components": "^1.4.6"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",

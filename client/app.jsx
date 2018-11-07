@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Gallery from './gallery.jsx';
+import Nav from './Nav.jsx';
 import ImageCollage from './imageCollage.jsx';
+import Modal from 'react-responsive-modal';
 
 
 class App extends React.Component {
@@ -11,11 +13,13 @@ class App extends React.Component {
       view: 'imageCollege',
       clickedImg: 0,
       n: 0,
+      open: false,
     };
 
     this.handleClick = this.handleClick.bind(this);
     this.changeView = this.changeView.bind(this);
     this.renderView = this.renderView.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   changeView(newView, { classList } = [], n) {
@@ -25,6 +29,9 @@ class App extends React.Component {
       console.log('newView:', newView);
       console.log('n: ', classList);
       clickedImg = classList;
+      this.setState({
+        open: true,
+      })
     }
 
     this.setState({
@@ -39,14 +46,23 @@ class App extends React.Component {
     this.changeView('gallery');
   }
 
+
+  handleClose() {
+    this.setState({open: false});
+  }
   renderView() {
-    const { view, n } = this.state;
+    const { view, n, open } = this.state;
     let DOM;
     if (view === 'imageCollege') {
       DOM = <ImageCollage handleClick={this.changeView} />;
     } else if (view === 'gallery') {
-      DOM = <Gallery handleClick={this.changeView} n={n} />;
-    }
+      DOM = (
+        <div>
+       <Gallery handleClick={this.changeView} n={n} />
+        </div>
+      );
+    };
+
     return DOM;
   }
 
