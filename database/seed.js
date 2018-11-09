@@ -47,7 +47,7 @@ db.Images.deleteMany({})
     for (let i = 0; i < 100; i++) {
       listingImages.push(
         {
-          listingId: faker.random.number({ min: 1, max: 100 }),
+          listingId: i,
           images: generateImages(),
         }
       );
