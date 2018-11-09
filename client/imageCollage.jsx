@@ -17,7 +17,7 @@ const Wrapper = styled.div`
     overflow: hidden;
     display: flex;
     width: 100%;
-    height:660px;
+    height:20%%;
     background-color: #484848;
   }
   

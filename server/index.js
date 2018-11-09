@@ -14,6 +14,7 @@ app.use('/listings/:id/', express.static(path.join(__dirname, '../public')));
 
 app.get('/listings/:id/images', cors(), (req, res) => {
   const { id } = req.params;
+  console.log('id: ', id);
   db.Images.find({ listingId: id })
     .then((listingImages) => {
       console.log(listingImages);

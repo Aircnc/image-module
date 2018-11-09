@@ -9,7 +9,9 @@ const Nav = () => (
       <img id="logoImg" alt="" src="https://1ststepaccounting.com/wp-content/uploads/2017/07/airbnb-logo.png" />
     </div>
 
-    <Input id="search-bar" size="big" icon="search" iconPosition="left" placeholder="Search" />
+    <div class="search">
+      <Input id="search-bar" size="big" icon="search" iconPosition="left" placeholder="Search" />
+    </div>
     
     <div id="list1" className="rectangle">Start hosting</div>
     <div id="list2" className="rectangle">Saved</div>
@@ -23,5 +25,5 @@ const Nav = () => (
 );
 
 export default Nav;
-
 ReactDOM.render(<Nav />, document.getElementById('nav-bar'));
+

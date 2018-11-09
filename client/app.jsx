@@ -31,7 +31,7 @@ class App extends React.Component {
       clickedImg = classList;
       this.setState({
         open: true,
-      })
+      });
     }
 
     this.setState({
@@ -45,7 +45,6 @@ class App extends React.Component {
     console.log(e.target);
     this.changeView('gallery');
   }
-
 
   handleClose() {
     this.setState({open: false});
@@ -62,7 +61,6 @@ class App extends React.Component {
         </div>
       );
     };
-
     return DOM;
   }
 
