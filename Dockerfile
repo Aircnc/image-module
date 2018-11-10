@@ -13,17 +13,24 @@ COPY . /src/app
 # Does your app have any dependencies that should be installed?
 RUN npm install
 
-RUN npm run seed
+# RUN npm run seed
 
 RUN npm run react-dev 
 
-# RUN chmod +x ./wait-for
+## THE LIFE SAVER
 
 # RUN sh -c ./wait-for mongodb://database:27017
 
 # What port will the container talk to the outside world with once created?
 EXPOSE 3003
 # How do you start your app?
+
+# ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.2.1/wait /wait
+
+# RUN chmod +x /wait
+
+# CMD /wait && npm start
+
 
 CMD ["npm", "start"]
 

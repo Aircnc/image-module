@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "jest --coverage",
-    "react-dev": "webpack -d",
+    "react-dev": "webpack -d --mode=production",
     "start": "node ./server/index.js",
     "seed": "node ./database/seed.js"
   },
@@ -45,7 +45,7 @@
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.4",
     "babel-plugin-styled-components": "^1.8.0",
-    "css-loader": "^1.0.1",
+    "compression-webpack-plugin": "^2.0.0",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.6.0",
     "eslint": "^5.8.0",

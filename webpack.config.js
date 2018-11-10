@@ -1,5 +1,7 @@
   /*eslint-disable */
 
+  const CompressionPlugin = require('compression-webpack-plugin');
+
   module.exports = {
       entry: __dirname + '/client/app.jsx',
       module: {
@@ -28,6 +30,9 @@
           },
         ]
       },
+      plugins: [
+        new CompressionPlugin(),
+      ],
        output: {
         filename: 'bundle.js',
         path: __dirname + '/public'

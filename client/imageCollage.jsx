@@ -132,8 +132,8 @@ class ImageCollage extends React.Component {
   }
 
   componentDidMount() {
-    let listingId = window.location.href.slice(31, -1);
-    axios.get(`http://127.0.0.1:3003/listings/${listingId}/images`)
+    let listingId = window.location.pathname;
+    axios.get(`http://18.191.17.4${listingId}images`)
       .then(({ data }) => {
         console.log(data);
         const newImages = data[0].images;
